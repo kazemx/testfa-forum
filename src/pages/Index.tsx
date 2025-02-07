@@ -1,15 +1,9 @@
-
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, FileText } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
 
 // Popular topics data
 const popularTopics = [
@@ -41,22 +35,11 @@ const popularTopics = [
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [api, setApi] = useState<any>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!api) return;
-
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, [api]);
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100" dir="rtl">
-      <div className="max-w-7xl mx-auto px-4 py-8 flex flex-row-reverse gap-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-row-reverse gap-8" dir="rtl">
         <div className="flex-grow">
           <TopicTabs selectedCategory={selectedCategory} />
         </div>
@@ -70,25 +53,28 @@ const Index = () => {
 
       {/* Popular Topics Section */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-6 text-right">پربازدید‌ها</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <h2 className="text-2xl font-bold mb-6 text-right" dir="rtl">پربازدید‌ها</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4" dir="rtl">
           {popularTopics.map((topic) => (
-            <div key={topic.id} className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between h-40">
+            <div 
+              key={topic.id} 
+              className="bg-white/50 backdrop-blur-sm rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-40 border border-gray-100"
+            >
               <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <BookOpen className="w-4 h-4 text-gray-600" />
+                <div className="flex items-center gap-2 mb-2">
+                  <BookOpen className="w-4 h-4 text-primary" />
                   <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
                     {topic.title}
                   </h3>
                 </div>
-                <p className="text-xs text-gray-600 mb-1">
+                <p className="text-xs text-gray-600 mb-2">
                   نویسنده: {topic.author}
                 </p>
               </div>
-              <div className="flex justify-between items-center mt-2">
-                <div className="flex items-center gap-1">
+              <div className="flex justify-between items-center mt-auto">
+                <div className="flex items-center gap-1 text-gray-600">
                   <svg
-                    className="w-4 h-4 text-gray-600"
+                    className="w-4 h-4"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -106,15 +92,15 @@ const Index = () => {
                       d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                     />
                   </svg>
-                  <span className="text-xs font-medium text-gray-700">
+                  <span className="text-xs font-medium">
                     {topic.views.toLocaleString('fa-IR')}
                   </span>
                 </div>
                 <Button 
-                  variant="ghost" 
+                  variant="secondary"
                   size="sm"
                   onClick={() => navigate(`/topics/${topic.id}`)}
-                  className="text-xs"
+                  className="text-xs bg-primary/5 hover:bg-primary/10 text-primary transition-colors"
                 >
                   مشاهده
                 </Button>
@@ -128,4 +114,3 @@ const Index = () => {
 };
 
 export default Index;
-
