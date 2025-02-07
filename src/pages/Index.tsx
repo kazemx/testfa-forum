@@ -43,10 +43,10 @@ const Index = () => {
   useEffect(() => {
     if (!api) return;
 
-    // Auto-slide every second
+    // Auto-slide every 0.5 seconds
     const interval = setInterval(() => {
       api.scrollNext();
-    }, 1000);
+    }, 500);
 
     return () => clearInterval(interval);
   }, [api]);
