@@ -68,64 +68,60 @@ const Index = () => {
         </div>
       </div>
 
-      {/* Popular Topics Carousel Section */}
+      {/* Popular Topics Section */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         <h2 className="text-2xl font-bold mb-6 text-right">پربازدید‌ها</h2>
-        <Carousel setApi={setApi} className="w-full">
-          <CarouselContent>
-            {popularTopics.map((topic) => (
-              <CarouselItem key={topic.id} className="md:basis-1/2 lg:basis-1/3">
-                <div className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between h-40">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <BookOpen className="w-4 h-4 text-gray-600" />
-                      <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
-                        {topic.title}
-                      </h3>
-                    </div>
-                    <p className="text-xs text-gray-600 mb-1">
-                      نویسنده: {topic.author}
-                    </p>
-                  </div>
-                  <div className="flex justify-between items-center mt-2">
-                    <div className="flex items-center gap-1">
-                      <svg
-                        className="w-4 h-4 text-gray-600"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                      </svg>
-                      <span className="text-xs font-medium text-gray-700">
-                        {topic.views.toLocaleString('fa-IR')}
-                      </span>
-                    </div>
-                    <Button 
-                      variant="ghost" 
-                      size="sm"
-                      onClick={() => navigate(`/topics/${topic.id}`)}
-                      className="text-xs"
-                    >
-                      مشاهده
-                    </Button>
-                  </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {popularTopics.map((topic) => (
+            <div key={topic.id} className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between h-40">
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <BookOpen className="w-4 h-4 text-gray-600" />
+                  <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                    {topic.title}
+                  </h3>
                 </div>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+                <p className="text-xs text-gray-600 mb-1">
+                  نویسنده: {topic.author}
+                </p>
+              </div>
+              <div className="flex justify-between items-center mt-2">
+                <div className="flex items-center gap-1">
+                  <svg
+                    className="w-4 h-4 text-gray-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                    />
+                  </svg>
+                  <span className="text-xs font-medium text-gray-700">
+                    {topic.views.toLocaleString('fa-IR')}
+                  </span>
+                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate(`/topics/${topic.id}`)}
+                  className="text-xs"
+                >
+                  مشاهده
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

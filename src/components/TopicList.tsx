@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { BookOpen, FileText, Video, Image, FolderOpen } from "lucide-react";
@@ -177,7 +178,7 @@ export default function TopicList({
         transition={{ duration: 0.3 }}
         dir="rtl"
       >
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {sortedTopics.map((topic) => (
             <motion.div
               key={topic.id}
