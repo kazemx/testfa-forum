@@ -1,5 +1,7 @@
-
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { BookOpen, FileText, Video, Image, FolderOpen } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type Topic = {
   id: number;
@@ -9,6 +11,21 @@ type Topic = {
   likes: number;
   replies: number;
   category: string;
+};
+
+const getTopicIcon = (category: string) => {
+  switch (category.toLowerCase()) {
+    case "برنامه‌نویسی":
+      return <FileText className="w-4 h-4 text-gray-600" />;
+    case "طراحی":
+      return <Image className="w-4 h-4 text-gray-600" />;
+    case "هوش مصنوعی":
+      return <BookOpen className="w-4 h-4 text-gray-600" />;
+    case "موبایل":
+      return <Video className="w-4 h-4 text-gray-600" />;
+    default:
+      return <FolderOpen className="w-4 h-4 text-gray-600" />;
+  }
 };
 
 const topics: Topic[] = [
@@ -148,6 +165,7 @@ export default function TopicList({
   selectedCategory: string | null;
 }) {
   const sortedTopics = sortTopics(topics, activeTab, selectedCategory);
+  const navigate = useNavigate();
 
   return (
     <AnimatePresence mode="wait">
@@ -167,9 +185,12 @@ export default function TopicList({
               className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between h-40"
             >
               <div>
-                <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
-                  {topic.title}
-                </h3>
+                <div className="flex items-center gap-2 mb-1">
+                  {getTopicIcon(topic.category)}
+                  <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                    {topic.title}
+                  </h3>
+                </div>
                 <p className="text-xs text-gray-600 mb-1">
                   نویسنده: {topic.author}
                 </p>
@@ -178,42 +199,52 @@ export default function TopicList({
                 </p>
               </div>
               <div className="flex justify-between items-center mt-2">
-                <div className="flex items-center gap-1">
-                  <svg
-                    className="w-4 h-4 text-gray-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
-                    />
-                  </svg>
-                  <span className="text-xs font-medium text-gray-700">
-                    {topic.likes}
-                  </span>
+                <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-1">
+                    <svg
+                      className="w-4 h-4 text-gray-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+                      />
+                    </svg>
+                    <span className="text-xs font-medium text-gray-700">
+                      {topic.likes}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <svg
+                      className="w-4 h-4 text-gray-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                      />
+                    </svg>
+                    <span className="text-xs font-medium text-gray-700">
+                      {topic.replies}
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-1">
-                  <svg
-                    className="w-4 h-4 text-gray-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                    />
-                  </svg>
-                  <span className="text-xs font-medium text-gray-700">
-                    {topic.replies}
-                  </span>
-                </div>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  onClick={() => navigate(`/topics/${topic.id}`)}
+                  className="text-xs"
+                >
+                  مشاهده
+                </Button>
               </div>
             </motion.div>
           ))}

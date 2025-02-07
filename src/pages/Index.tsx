@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
+import { useNavigate } from "react-router-dom";
+import { BookOpen, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import {
   Carousel,
   CarouselContent,
@@ -39,11 +42,11 @@ const popularTopics = [
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [api, setApi] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!api) return;
 
-    // Auto-slide every 0.5 seconds
     const interval = setInterval(() => {
       api.scrollNext();
     }, 500);
@@ -74,9 +77,12 @@ const Index = () => {
               <CarouselItem key={topic.id} className="md:basis-1/2 lg:basis-1/3">
                 <div className="bg-white/50 backdrop-blur-sm rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col justify-between h-40">
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900 mb-1 line-clamp-2">
-                      {topic.title}
-                    </h3>
+                    <div className="flex items-center gap-2 mb-1">
+                      <BookOpen className="w-4 h-4 text-gray-600" />
+                      <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                        {topic.title}
+                      </h3>
+                    </div>
                     <p className="text-xs text-gray-600 mb-1">
                       نویسنده: {topic.author}
                     </p>
@@ -106,6 +112,14 @@ const Index = () => {
                         {topic.views.toLocaleString('fa-IR')}
                       </span>
                     </div>
+                    <Button 
+                      variant="ghost" 
+                      size="sm"
+                      onClick={() => navigate(`/topics/${topic.id}`)}
+                      className="text-xs"
+                    >
+                      مشاهده
+                    </Button>
                   </div>
                 </div>
               </CarouselItem>
