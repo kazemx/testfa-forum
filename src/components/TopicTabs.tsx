@@ -15,11 +15,15 @@ const tabs: Tab[] = [
   { id: "most-replied", label: "Most Replied" },
 ];
 
-export default function TopicTabs() {
+export default function TopicTabs({ 
+  selectedCategory 
+}: { 
+  selectedCategory: string | null 
+}) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
-    <div className="w-full max-w-4xl mx-auto px-4 py-8">
+    <div className="w-full max-w-4xl mx-auto">
       <div className="relative">
         <div className="flex space-x-1 bg-white/20 backdrop-blur-sm rounded-lg p-1">
           {tabs.map((tab) => (
@@ -48,7 +52,7 @@ export default function TopicTabs() {
       </div>
 
       <div className="mt-6">
-        <TopicList activeTab={activeTab} />
+        <TopicList activeTab={activeTab} selectedCategory={selectedCategory} />
       </div>
     </div>
   );

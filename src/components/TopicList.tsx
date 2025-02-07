@@ -8,6 +8,7 @@ type Topic = {
   date: string;
   likes: number;
   replies: number;
+  category: string; // Added category field
 };
 
 const topics: Topic[] = [
@@ -18,6 +19,7 @@ const topics: Topic[] = [
     date: "2024-03-20",
     likes: 245,
     replies: 89,
+    category: "برنامه‌نویسی"
   },
   {
     id: 2,
@@ -26,6 +28,7 @@ const topics: Topic[] = [
     date: "2024-03-19",
     likes: 189,
     replies: 156,
+    category: "برنامه‌نویسی"
   },
   {
     id: 3,
@@ -34,11 +37,34 @@ const topics: Topic[] = [
     date: "2024-03-18",
     likes: 312,
     replies: 67,
+    category: "طراحی"
   },
+  {
+    id: 4,
+    title: "Machine Learning Basics",
+    author: "John Smith",
+    date: "2024-03-17",
+    likes: 178,
+    replies: 45,
+    category: "هوش مصنوعی"
+  },
+  {
+    id: 5,
+    title: "Network Security Best Practices",
+    author: "Emily Brown",
+    date: "2024-03-16",
+    likes: 156,
+    replies: 34,
+    category: "امنیت"
+  }
 ];
 
-const sortTopics = (topics: Topic[], activeTab: string) => {
-  const sortedTopics = [...topics];
+const sortTopics = (topics: Topic[], activeTab: string, selectedCategory: string | null) => {
+  let filteredTopics = selectedCategory 
+    ? topics.filter(topic => topic.category === selectedCategory)
+    : topics;
+
+  const sortedTopics = [...filteredTopics];
   switch (activeTab) {
     case "most-liked":
       return sortedTopics.sort((a, b) => b.likes - a.likes);
@@ -51,13 +77,19 @@ const sortTopics = (topics: Topic[], activeTab: string) => {
   }
 };
 
-export default function TopicList({ activeTab }: { activeTab: string }) {
-  const sortedTopics = sortTopics(topics, activeTab);
+export default function TopicList({ 
+  activeTab, 
+  selectedCategory 
+}: { 
+  activeTab: string;
+  selectedCategory: string | null;
+}) {
+  const sortedTopics = sortTopics(topics, activeTab, selectedCategory);
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={activeTab}
+        key={`${activeTab}-${selectedCategory}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
