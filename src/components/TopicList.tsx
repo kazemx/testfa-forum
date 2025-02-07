@@ -8,14 +8,14 @@ type Topic = {
   date: string;
   likes: number;
   replies: number;
-  category: string; // Added category field
+  category: string;
 };
 
 const topics: Topic[] = [
   {
     id: 1,
-    title: "Getting Started with Web Development",
-    author: "Sarah Chen",
+    title: "شروع برنامه‌نویسی وب",
+    author: "سارا چن",
     date: "2024-03-20",
     likes: 245,
     replies: 89,
@@ -23,8 +23,8 @@ const topics: Topic[] = [
   },
   {
     id: 2,
-    title: "Modern JavaScript Practices",
-    author: "Alex Kim",
+    title: "تکنیک‌های مدرن جاوااسکریپت",
+    author: "علی کیم",
     date: "2024-03-19",
     likes: 189,
     replies: 156,
@@ -32,8 +32,8 @@ const topics: Topic[] = [
   },
   {
     id: 3,
-    title: "UI/UX Design Principles",
-    author: "Maria Garcia",
+    title: "اصول طراحی رابط کاربری",
+    author: "مریم گارسیا",
     date: "2024-03-18",
     likes: 312,
     replies: 67,
@@ -41,8 +41,8 @@ const topics: Topic[] = [
   },
   {
     id: 4,
-    title: "Machine Learning Basics",
-    author: "John Smith",
+    title: "مبانی یادگیری ماشین",
+    author: "جان اسمیت",
     date: "2024-03-17",
     likes: 178,
     replies: 45,
@@ -50,8 +50,8 @@ const topics: Topic[] = [
   },
   {
     id: 5,
-    title: "Network Security Best Practices",
-    author: "Emily Brown",
+    title: "بهترین روش‌های امنیت شبکه",
+    author: "امیلی براون",
     date: "2024-03-16",
     likes: 156,
     replies: 34,
@@ -95,6 +95,7 @@ export default function TopicList({
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
         className="space-y-4"
+        dir="rtl"
       >
         {sortedTopics.map((topic) => (
           <motion.div
@@ -108,7 +109,7 @@ export default function TopicList({
                   {topic.title}
                 </h3>
                 <p className="text-sm text-gray-600">
-                  by {topic.author} • {new Date(topic.date).toLocaleDateString()}
+                  نویسنده: {topic.author} • {new Date(topic.date).toLocaleDateString('fa-IR')}
                 </p>
               </div>
               <div className="flex items-center space-x-4">

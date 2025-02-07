@@ -10,9 +10,9 @@ type Tab = {
 };
 
 const tabs: Tab[] = [
-  { id: "latest", label: "Latest" },
-  { id: "most-liked", label: "Most Liked" },
-  { id: "most-replied", label: "Most Replied" },
+  { id: "latest", label: "جدیدترین" },
+  { id: "most-liked", label: "محبوب‌ترین" },
+  { id: "most-replied", label: "پربحث‌ترین" },
 ];
 
 export default function TopicTabs({ 
@@ -23,7 +23,7 @@ export default function TopicTabs({
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
   return (
-    <div className="w-full max-w-4xl mx-auto">
+    <div className="w-full max-w-4xl mx-auto" dir="rtl">
       <div className="relative">
         <div className="flex space-x-1 bg-white/20 backdrop-blur-sm rounded-lg p-1">
           {tabs.map((tab) => (
