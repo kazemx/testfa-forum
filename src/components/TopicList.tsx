@@ -150,10 +150,23 @@ const topics: Topic[] = [
   }
 ];
 
-const sortTopics = (topics: Topic[], activeTab: string, selectedCategory: string | null) => {
-  let filteredTopics = selectedCategory 
-    ? topics.filter(topic => topic.category === selectedCategory)
-    : topics;
+const sortTopics = (topics: Topic[], activeTab: string, selectedCategory: string | null, searchQuery: string) => {
+  let filteredTopics = topics;
+  
+  // Filter by category if selected
+  if (selectedCategory) {
+    filteredTopics = filteredTopics.filter(topic => topic.category === selectedCategory);
+  }
+  
+  // Filter by search query if present
+  if (searchQuery) {
+    const query = searchQuery.toLowerCase();
+    filteredTopics = filteredTopics.filter(topic => 
+      topic.title.toLowerCase().includes(query) ||
+      topic.author.toLowerCase().includes(query) ||
+      topic.category.toLowerCase().includes(query)
+    );
+  }
 
   const sortedTopics = [...filteredTopics];
   switch (activeTab) {
@@ -170,12 +183,14 @@ const sortTopics = (topics: Topic[], activeTab: string, selectedCategory: string
 
 export default function TopicList({ 
   activeTab, 
-  selectedCategory 
+  selectedCategory,
+  searchQuery 
 }: { 
   activeTab: string;
   selectedCategory: string | null;
+  searchQuery: string;
 }) {
-  const sortedTopics = sortTopics(topics, activeTab, selectedCategory);
+  const sortedTopics = sortTopics(topics, activeTab, selectedCategory, searchQuery);
   const navigate = useNavigate();
 
   return (

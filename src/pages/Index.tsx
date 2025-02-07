@@ -1,9 +1,11 @@
+
 import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
 import { useNavigate } from "react-router-dom";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 // Popular topics data
 const popularTopics = [
@@ -35,13 +37,34 @@ const popularTopics = [
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-24 flex flex-row-reverse gap-8" dir="rtl">
+      {/* Search Bar */}
+      <div className="w-full flex justify-center py-8">
+        <div className="w-3/4 relative max-w-3xl">
+          <div className="relative">
+            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              type="text"
+              placeholder="جستجو در موضوعات..."
+              className="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/20 text-right"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              dir="rtl"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 py-12 flex flex-row-reverse gap-8" dir="rtl">
         <div className="flex-grow">
-          <TopicTabs selectedCategory={selectedCategory} />
+          <TopicTabs 
+            selectedCategory={selectedCategory} 
+            searchQuery={searchQuery}
+          />
         </div>
         <div className="hidden md:block">
           <CategoryList 

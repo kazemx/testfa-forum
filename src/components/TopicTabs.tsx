@@ -4,21 +4,18 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import TopicList from "./TopicList";
 
-type Tab = {
-  id: string;
-  label: string;
-};
-
-const tabs: Tab[] = [
+const tabs = [
   { id: "latest", label: "جدیدترین" },
   { id: "most-liked", label: "محبوب‌ترین" },
   { id: "most-replied", label: "پربحث‌ترین" },
 ];
 
 export default function TopicTabs({ 
-  selectedCategory 
+  selectedCategory,
+  searchQuery 
 }: { 
-  selectedCategory: string | null 
+  selectedCategory: string | null;
+  searchQuery: string;
 }) {
   const [activeTab, setActiveTab] = useState(tabs[0].id);
 
@@ -52,7 +49,11 @@ export default function TopicTabs({
       </div>
 
       <div className="mt-6">
-        <TopicList activeTab={activeTab} selectedCategory={selectedCategory} />
+        <TopicList 
+          activeTab={activeTab} 
+          selectedCategory={selectedCategory}
+          searchQuery={searchQuery}
+        />
       </div>
     </div>
   );
