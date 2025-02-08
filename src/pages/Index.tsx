@@ -42,52 +42,54 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-12 flex flex-row-reverse gap-8" dir="rtl">
-        <div className="flex-grow">
-          {/* Logo and Title */}
-          <div className="flex flex-col items-end mb-8">
-            <img 
-              src="/lovable-uploads/12bfdee4-963e-4d18-b4b3-6e87345a6442.png" 
-              alt="تالار گفتگو" 
-              className="w-16 h-16 mb-2"
-            />
-            <h1 className="text-lg font-semibold text-gray-800">تالار گفتگوی تست فا</h1>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 py-12" dir="rtl">
+        {/* Logo and Title */}
+        <div className="flex flex-col items-end mb-8">
+          <img 
+            src="/lovable-uploads/12bfdee4-963e-4d18-b4b3-6e87345a6442.png" 
+            alt="تالار گفتگو" 
+            className="w-16 h-16 mb-2"
+          />
+          <h1 className="text-lg font-semibold text-gray-800">تالار گفتگوی تست فا</h1>
+        </div>
 
-          {/* Search Bar */}
-          <div className="w-full flex justify-end mb-8">
-            <div className="w-full relative flex gap-4">
-              <Button 
-                className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center gap-2 px-6"
-                onClick={() => navigate('/new-question')}
-              >
-                <Plus className="w-5 h-5" />
-                <span>ثبت پرسش جدید</span>
-              </Button>
-              <div className="relative flex-1">
-                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  type="text"
-                  placeholder="جست و جو در عناوین ..."
-                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/20 text-right"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  dir="rtl"
-                />
+        <div className="flex flex-row-reverse gap-8">
+          <div className="flex-grow">
+            {/* Search Bar */}
+            <div className="w-full flex justify-end mb-8">
+              <div className="w-full relative flex gap-4">
+                <Button 
+                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center gap-2 px-6"
+                  onClick={() => navigate('/new-question')}
+                >
+                  <Plus className="w-5 h-5" />
+                  <span>ثبت پرسش جدید</span>
+                </Button>
+                <div className="relative flex-1">
+                  <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <Input
+                    type="text"
+                    placeholder="جست و جو در عناوین ..."
+                    className="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/20 text-right"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    dir="rtl"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
-          <TopicTabs 
-            selectedCategory={selectedCategory} 
-            searchQuery={searchQuery}
-          />
-        </div>
-        <div className="hidden md:block">
-          <CategoryList 
-            selectedCategory={selectedCategory}
-            onSelectCategory={setSelectedCategory}
-          />
+            <TopicTabs 
+              selectedCategory={selectedCategory} 
+              searchQuery={searchQuery}
+            />
+          </div>
+          <div className="hidden md:block">
+            <CategoryList 
+              selectedCategory={selectedCategory}
+              onSelectCategory={setSelectedCategory}
+            />
+          </div>
         </div>
       </div>
 
