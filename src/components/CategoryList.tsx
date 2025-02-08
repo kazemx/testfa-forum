@@ -2,14 +2,14 @@
 import { motion } from "framer-motion";
 import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen } from "lucide-react";
 
-type Category = {
+export type Category = {
   id: string;
   name: string;
   count: number;
   icon: JSX.Element;
 };
 
-const categories: Category[] = [
+export const categories: Category[] = [
   { id: "1", name: "ریاضیات", count: 150, icon: <ChartLine className="w-4 h-4" /> },
   { id: "2", name: "زیست شناسی", count: 89, icon: <Microscope className="w-4 h-4" /> },
   { id: "3", name: "شیمی", count: 76, icon: <FlaskConical className="w-4 h-4" /> },
