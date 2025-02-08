@@ -1,5 +1,5 @@
 
-import { AlertTriangle, ArrowRight, MessageSquare, Send } from "lucide-react";
+import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-// Define topic type for better type safety
+// Define types for better type safety
+type Reply = {
+  id: number;
+  author: string;
+  content: string;
+  date: string;
+  likes: number;
+  replies?: Reply[];
+};
+
 type Topic = {
   id: number;
   title: string;
@@ -16,10 +25,10 @@ type Topic = {
   date: string;
   category: string;
   likes: number;
-  replies: number;
+  replies: Reply[];
 };
 
-// Define topics array
+// Define topics array with nested replies
 const topics: Topic[] = [
   {
     id: 1,
@@ -28,18 +37,125 @@ const topics: Topic[] = [
     date: "2024-01-15",
     category: "آموزشی",
     likes: 24,
-    replies: 8
+    replies: [
+      {
+        id: 1,
+        author: "سارا احمدی",
+        content: "من پیشنهاد می‌کنم با مستندات رسمی React شروع کنید. منابع فارسی خوبی هم وجود دارد.",
+        date: "2024-01-16",
+        likes: 12,
+        replies: [
+          {
+            id: 11,
+            author: "رضا کریمی",
+            content: "با نظر سارا موافقم. می‌تونید از دوره‌های آموزشی راکت هم استفاده کنید.",
+            date: "2024-01-16",
+            likes: 5
+          }
+        ]
+      },
+      {
+        id: 2,
+        author: "محمد حسینی",
+        content: "پروژه‌های عملی خیلی مهم هستند. سعی کنید همزمان با یادگیری، پروژه‌های کوچک انجام بدید.",
+        date: "2024-01-17",
+        likes: 8,
+        replies: []
+      }
+    ]
   },
   {
     id: 2,
     title: "بهترین منابع یادگیری جاوااسکریپت",
     author: "مریم حسینی",
-    date: "2024-01-14", 
+    date: "2024-01-14",
     category: "منابع",
     likes: 15,
-    replies: 5
+    replies: [
+      {
+        id: 3,
+        author: "امیر رضایی",
+        content: "کتاب Eloquent JavaScript عالیه. نسخه فارسی‌ش هم موجوده.",
+        date: "2024-01-15",
+        likes: 6,
+        replies: []
+      }
+    ]
   }
 ];
+
+// Reply component to show individual replies
+const ReplyComponent = ({ reply, onReply }: { reply: Reply; onReply: (parentId: number) => void }) => {
+  const [showReplyForm, setShowReplyForm] = useState(false);
+  const [replyContent, setReplyContent] = useState("");
+  const { toast } = useToast();
+
+  const handleSubmitReply = () => {
+    if (!replyContent.trim()) {
+      toast({
+        title: "خطا",
+        description: "لطفا پاسخ خود را وارد کنید",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    toast({
+      title: "موفق",
+      description: "پاسخ شما با موفقیت ثبت شد",
+    });
+    setReplyContent("");
+    setShowReplyForm(false);
+  };
+
+  return (
+    <div className="border-r border-gray-200 pr-4 mb-4">
+      <div className="bg-gray-50 rounded-lg p-4 mb-2">
+        <div className="flex justify-between items-start mb-2">
+          <div className="font-medium text-gray-900">{reply.author}</div>
+          <div className="text-sm text-gray-500">{new Date(reply.date).toLocaleDateString('fa-IR')}</div>
+        </div>
+        <p className="text-gray-700 mb-2">{reply.content}</p>
+        <div className="flex items-center gap-4">
+          <button className="flex items-center gap-1 text-gray-500 hover:text-gray-700">
+            <ThumbsUp className="w-4 h-4" />
+            <span>{reply.likes}</span>
+          </button>
+          <button 
+            className="flex items-center gap-1 text-gray-500 hover:text-gray-700"
+            onClick={() => setShowReplyForm(!showReplyForm)}
+          >
+            <MessageCircle className="w-4 h-4" />
+            <span>پاسخ</span>
+          </button>
+        </div>
+      </div>
+
+      {showReplyForm && (
+        <div className="mt-2 mb-4">
+          <Textarea
+            placeholder="پاسخ خود را بنویسید..."
+            value={replyContent}
+            onChange={(e) => setReplyContent(e.target.value)}
+            className="mb-2"
+          />
+          <div className="flex gap-2">
+            <Button onClick={handleSubmitReply}>ارسال پاسخ</Button>
+            <Button variant="outline" onClick={() => setShowReplyForm(false)}>انصراف</Button>
+          </div>
+        </div>
+      )}
+
+      {reply.replies && reply.replies.length > 0 && (
+        <div className="mr-4">
+          {reply.replies.map((nestedReply) => (
+            <ReplyComponent key={nestedReply.id} reply={nestedReply} onReply={onReply} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const TopicDetail = () => {
   const navigate = useNavigate();
@@ -205,7 +321,7 @@ const TopicDetail = () => {
             <span>نویسنده: {topic.author}</span>
             <span>تاریخ: {new Date(topic.date).toLocaleDateString('fa-IR')}</span>
             <span>پسندیدن: {topic.likes.toLocaleString('fa-IR')}</span>
-            <span>پاسخ‌ها: {topic.replies.toLocaleString('fa-IR')}</span>
+            <span>پاسخ‌ها: {topic.replies.length.toLocaleString('fa-IR')}</span>
           </div>
 
           <div className="prose prose-gray max-w-none">
@@ -215,11 +331,29 @@ const TopicDetail = () => {
           </div>
         </div>
 
-        {/* Response Section */}
+        {/* Replies Section */}
+        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
+          <div className="flex items-center gap-2 mb-6">
+            <MessageSquare className="w-5 h-5 text-primary" />
+            <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
+          </div>
+          
+          <div className="space-y-4">
+            {topic.replies.map((reply) => (
+              <ReplyComponent 
+                key={reply.id} 
+                reply={reply}
+                onReply={(parentId) => console.log('Reply to:', parentId)}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* New Response Section */}
         <div id="reply-section" className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
           <div className="flex items-center gap-2 mb-4">
             <MessageSquare className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ</h2>
+            <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
           </div>
           
           <Textarea
