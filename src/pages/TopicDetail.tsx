@@ -1,4 +1,3 @@
-
 import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -174,7 +173,7 @@ const TopicDetail = () => {
         <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">موضوع مورد نظر یافت نشد</h1>
-            <Button onClick={() => navigate('/')}>بازگشت به صفحه اصلی</Button>
+            <Button onClick={() => navigate('/')}>بازگشت به صه اصلی</Button>
           </div>
         </div>
       </div>
@@ -259,7 +258,7 @@ const TopicDetail = () => {
                     گزارش تخلف
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="sm:max-w-md" dir="rtl">
+                <DialogContent className="sm:max-w-md text-right" dir="rtl">
                   <DialogHeader>
                     <DialogTitle>گزارش این مطلب به عنوان یک</DialogTitle>
                   </DialogHeader>
@@ -284,7 +283,7 @@ const TopicDetail = () => {
                       <div className="flex items-center space-x-2 space-x-reverse">
                         <RadioGroupItem value="violation" id="violation" />
                         <label htmlFor="violation" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          نقض قوانین راکت
+                          نقض قوانین تست فا
                         </label>
                       </div>
                       <div className="flex items-center space-x-2 space-x-reverse">
