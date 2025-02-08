@@ -44,7 +44,7 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-12" dir="rtl">
         {/* Logo and Title */}
-        <div className="flex flex-col items-end mb-8">
+        <div className="flex flex-col items-start mb-8">
           <img 
             src="/lovable-uploads/12bfdee4-963e-4d18-b4b3-6e87345a6442.png" 
             alt="تالار گفتگو" 
