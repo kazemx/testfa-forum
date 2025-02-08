@@ -7,7 +7,28 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import topics from "@/components/TopicList"; // Fixed import
+
+// Import the topics array directly
+const topics = [
+  {
+    id: 1,
+    title: "چگونه می‌توانم React را یاد بگیرم؟",
+    author: "علی محمدی",
+    date: "2024-01-15",
+    category: "آموزشی",
+    likes: 24,
+    replies: 8
+  },
+  {
+    id: 2,
+    title: "بهترین منابع یادگیری جاوااسکریپت",
+    author: "مریم حسینی",
+    date: "2024-01-14", 
+    category: "منابع",
+    likes: 15,
+    replies: 5
+  }
+];
 
 const TopicDetail = () => {
   const navigate = useNavigate();
