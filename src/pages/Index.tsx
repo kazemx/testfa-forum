@@ -42,32 +42,32 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      {/* Search Bar */}
-      <div className="w-full flex justify-center py-8">
-        <div className="w-3/4 relative max-w-3xl flex gap-4">
-          <Button 
-            className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center gap-2 px-6"
-            onClick={() => navigate('/new-question')}
-          >
-            <Plus className="w-5 h-5" />
-            <span>ثبت پرسش جدید</span>
-          </Button>
-          <div className="relative flex-1">
-            <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-            <Input
-              type="text"
-              placeholder="جست و جو در عناوین ..."
-              className="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/20 text-right"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              dir="rtl"
-            />
-          </div>
-        </div>
-      </div>
-
       <div className="max-w-7xl mx-auto px-4 py-12 flex flex-row-reverse gap-8" dir="rtl">
         <div className="flex-grow">
+          {/* Search Bar */}
+          <div className="w-full flex justify-end mb-8">
+            <div className="w-full relative flex gap-4">
+              <Button 
+                className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center gap-2 px-6"
+                onClick={() => navigate('/new-question')}
+              >
+                <Plus className="w-5 h-5" />
+                <span>ثبت پرسش جدید</span>
+              </Button>
+              <div className="relative flex-1">
+                <Search className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                <Input
+                  type="text"
+                  placeholder="جست و جو در عناوین ..."
+                  className="w-full pl-4 pr-12 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/20 text-right"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  dir="rtl"
+                />
+              </div>
+            </div>
+          </div>
+
           <TopicTabs 
             selectedCategory={selectedCategory} 
             searchQuery={searchQuery}
