@@ -8,8 +8,19 @@ import { useToast } from "@/components/ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
-// Import the topics array directly
-const topics = [
+// Define topic type for better type safety
+type Topic = {
+  id: number;
+  title: string;
+  author: string;
+  date: string;
+  category: string;
+  likes: number;
+  replies: number;
+};
+
+// Define topics array
+const topics: Topic[] = [
   {
     id: 1,
     title: "چگونه می‌توانم React را یاد بگیرم؟",
