@@ -44,6 +44,16 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-12 flex flex-row-reverse gap-8" dir="rtl">
         <div className="flex-grow">
+          {/* Logo and Title */}
+          <div className="flex flex-col items-end mb-8">
+            <img 
+              src="/lovable-uploads/12bfdee4-963e-4d18-b4b3-6e87345a6442.png" 
+              alt="تالار گفتگو" 
+              className="w-16 h-16 mb-2"
+            />
+            <h1 className="text-lg font-semibold text-gray-800">تالار گفتگوی تست فا</h1>
+          </div>
+
           {/* Search Bar */}
           <div className="w-full flex justify-end mb-8">
             <div className="w-full relative flex gap-4">
