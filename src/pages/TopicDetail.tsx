@@ -10,6 +10,7 @@ import { Reply } from "@/components/Reply";
 import { Leaderboard } from "@/components/Leaderboard";
 import { Topic, LeaderboardData } from "@/types/topic";
 import LatestPosts from "@/components/LatestPosts";
+import LatestTopics from "@/components/LatestTopics";
 
 const topics: Topic[] = [
   {
@@ -109,6 +110,10 @@ const TopicDetail = () => {
     );
   }
 
+  const relatedTopics = topics
+    .filter(t => t.category === topic.category && t.id !== topic.id)
+    .slice(0, 5);
+
   const handleSubmitResponse = () => {
     if (!response.trim()) {
       toast({
@@ -165,7 +170,13 @@ const TopicDetail = () => {
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-8">
+          <div className="lg:col-span-3 lg:order-1">
+            <div className="sticky top-8">
+              <Leaderboard data={leaderboardData} />
+            </div>
+          </div>
+
+          <div className="lg:col-span-6 lg:order-2">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
                 <h1 className="text-2xl font-bold text-gray-900">{topic.title}</h1>
@@ -301,10 +312,12 @@ const TopicDetail = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-4 h-full flex flex-col">
-            <div className="h-full flex-grow">
-              <Leaderboard data={leaderboardData} />
-              <LatestPosts />
+          <div className="lg:col-span-3 lg:order-3">
+            <div className="sticky top-8">
+              <LatestTopics 
+                category={topic.category}
+                topics={relatedTopics}
+              />
             </div>
           </div>
         </div>
