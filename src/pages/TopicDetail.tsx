@@ -102,7 +102,7 @@ const TopicDetail = () => {
         <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">متاسفانه موضوع مورد نظر یافت نشد</h1>
-            <Button onClick={() => navigate('/')}>با��گشت به صه اصلی</Button>
+            <Button onClick={() => navigate('/')}>بازگشت به صه اصلی</Button>
           </div>
         </div>
       </div>
@@ -256,20 +256,11 @@ const TopicDetail = () => {
 
               <div className="prose prose-gray max-w-none">
                 <p className="text-gray-700 leading-relaxed">
-                  {topic.content || "این یک متن نمونه برای نمایش محتوای تاپیک است. در نسخه نهایی، محتوای واقعی تاپیک در این قسمت نمایش داده خواهد شد."}
+                  {topic.content}
                 </p>
               </div>
             </div>
-          </div>
 
-          <div className="lg:col-span-4 h-full flex flex-col">
-            <div className="h-full flex-grow">
-              <Leaderboard data={leaderboardData} />
-              <LatestPosts />
-            </div>
-          </div>
-
-          <div className="lg:col-span-8">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-6">
                 <MessageSquare className="w-5 h-5 text-primary" />
@@ -286,10 +277,8 @@ const TopicDetail = () => {
                 ))}
               </div>
             </div>
-          </div>
 
-          <div className="lg:col-span-8">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
@@ -309,6 +298,13 @@ const TopicDetail = () => {
                 <Send className="w-4 h-4" />
                 <span>ارسال پاسخ</span>
               </Button>
+            </div>
+          </div>
+
+          <div className="lg:col-span-4 h-full flex flex-col">
+            <div className="h-full flex-grow">
+              <Leaderboard data={leaderboardData} />
+              <LatestPosts />
             </div>
           </div>
         </div>
