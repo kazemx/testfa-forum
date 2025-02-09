@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp } from "lucide-react";
+import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp, Trophy } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -6,8 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-// Define types for better type safety
 type Reply = {
   id: number;
   author: string;
@@ -27,7 +28,6 @@ type Topic = {
   replies: Reply[];
 };
 
-// Define topics array with nested replies
 const topics: Topic[] = [
   {
     id: 1,
@@ -83,7 +83,27 @@ const topics: Topic[] = [
   }
 ];
 
-// Reply component to show individual replies
+const leaderboardData = {
+  weekly: [
+    { id: 1, name: "علی رضایی", score: 45, avatar: "" },
+    { id: 2, name: "مریم احمدی", score: 38, avatar: "" },
+    { id: 3, name: "رضا محمدی", score: 32, avatar: "" },
+    // Add more users...
+  ],
+  monthly: [
+    { id: 1, name: "سارا کریمی", score: 156, avatar: "" },
+    { id: 2, name: "محمد حسینی", score: 142, avatar: "" },
+    { id: 3, name: "زهرا نوری", score: 128, avatar: "" },
+    // Add more users...
+  ],
+  allTime: [
+    { id: 1, name: "حسین رضایی", score: 892, avatar: "" },
+    { id: 2, name: "فاطمه محمدی", score: 765, avatar: "" },
+    { id: 3, name: "علی احمدی", score: 643, avatar: "" },
+    // Add more users...
+  ],
+};
+
 const ReplyComponent = ({ reply, onReply }: { reply: Reply; onReply: (parentId: number) => void }) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
@@ -164,7 +184,6 @@ const TopicDetail = () => {
   const [reportReason, setReportReason] = useState("");
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   
-  // Find the topic from our mock data
   const topic = topics.find(t => t.id === Number(id));
 
   if (!topic) {
@@ -225,7 +244,7 @@ const TopicDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
+      <div className="max-w-7xl mx-auto px-4 py-8" dir="rtl">
         <Button
           variant="ghost"
           className="mb-6 flex items-center gap-2 hover:bg-gray-100"
@@ -235,140 +254,217 @@ const TopicDetail = () => {
           <span>بازگشت</span>
         </Button>
 
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
-          <div className="flex justify-between items-start mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">{topic.title}</h1>
-            <div className="flex items-center gap-2">
-              <Button 
-                variant="ghost" 
-                size="sm"
-                onClick={handleQuickReply}
-                className="text-[#9b87f5] hover:text-[#7E69AB] hover:bg-purple-50"
-              >
-                پاسخ سریع
-              </Button>
-              <Dialog open={isReportModalOpen} onOpenChange={setIsReportModalOpen}>
-                <DialogTrigger asChild>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-[#F2FCE2] rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">پاسخ‌های فعال</h3>
+              <p className="text-3xl font-bold">۲۴</p>
+            </div>
+            <div className="bg-[#FEF7CD] rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">بازدید‌ها</h3>
+              <p className="text-3xl font-bold">۱۵۶</p>
+            </div>
+            <div className="bg-[#E5DEFF] rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">امتیاز</h3>
+              <p className="text-3xl font-bold">۸۵</p>
+            </div>
+          </div>
+          
+          <div className="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-[#FFDEE2] rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">پسندها</h3>
+              <p className="text-3xl font-bold">۴۲</p>
+            </div>
+            <div className="bg-[#FEC6A1] rounded-xl p-6 shadow-sm">
+              <h3 className="text-lg font-semibold mb-2">اشتراک‌ها</h3>
+              <p className="text-3xl font-bold">۱۲</p>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+          <div className="lg:col-span-8">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center gap-2 mb-4">
+                <h1 className="text-2xl font-bold text-gray-900">{topic.title}</h1>
+                <div className="flex items-center gap-2">
                   <Button 
                     variant="ghost" 
                     size="sm"
-                    className="text-[#ea384c] hover:text-red-700 hover:bg-red-50"
+                    onClick={handleQuickReply}
+                    className="text-[#9b87f5] hover:text-[#7E69AB] hover:bg-purple-50"
                   >
-                    <AlertTriangle className="w-4 h-4 ml-1" />
-                    گزارش تخلف
+                    پاسخ سریع
                   </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md text-right" dir="rtl">
-                  <DialogHeader>
-                    <DialogTitle>گزارش این مطلب به عنوان یک</DialogTitle>
-                  </DialogHeader>
-                  <div className="py-4">
-                    <RadioGroup 
-                      value={reportReason} 
-                      onValueChange={setReportReason}
-                      className="gap-3"
-                    >
-                      <div className="flex items-center space-x-2 space-x-reverse">
-                        <RadioGroupItem value="spam" id="spam" />
-                        <label htmlFor="spam" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          اسپم
-                        </label>
+                  <Dialog open={isReportModalOpen} onOpenChange={setIsReportModalOpen}>
+                    <DialogTrigger asChild>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-[#ea384c] hover:text-red-700 hover:bg-red-50"
+                      >
+                        <AlertTriangle className="w-4 h-4 ml-1" />
+                        گزارش تخلف
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="sm:max-w-md text-right" dir="rtl">
+                      <DialogHeader>
+                        <DialogTitle>گزارش این مطلب به عنوان یک</DialogTitle>
+                      </DialogHeader>
+                      <div className="py-4">
+                        <RadioGroup 
+                          value={reportReason} 
+                          onValueChange={setReportReason}
+                          className="gap-3"
+                        >
+                          <div className="flex items-center space-x-2 space-x-reverse">
+                            <RadioGroupItem value="spam" id="spam" />
+                            <label htmlFor="spam" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                              اسپم
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2 space-x-reverse">
+                            <RadioGroupItem value="duplicate" id="duplicate" />
+                            <label htmlFor="duplicate" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                              نوشته تکراری
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2 space-x-reverse">
+                            <RadioGroupItem value="violation" id="violation" />
+                            <label htmlFor="violation" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                              نقض قوانین تست فا
+                            </label>
+                          </div>
+                          <div className="flex items-center space-x-2 space-x-reverse">
+                            <RadioGroupItem value="other" id="other" />
+                            <label htmlFor="other" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                              موارد دیگر
+                            </label>
+                          </div>
+                        </RadioGroup>
                       </div>
-                      <div className="flex items-center space-x-2 space-x-reverse">
-                        <RadioGroupItem value="duplicate" id="duplicate" />
-                        <label htmlFor="duplicate" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          نوشته تکراری
-                        </label>
+                      <div className="flex justify-end gap-3 mt-4">
+                        <Button
+                          variant="secondary"
+                          onClick={() => setIsReportModalOpen(false)}
+                        >
+                          انصراف
+                        </Button>
+                        <Button
+                          onClick={handleSubmitReport}
+                          className="bg-[#ea384c] hover:bg-red-600"
+                        >
+                          ارسال گزارش
+                        </Button>
                       </div>
-                      <div className="flex items-center space-x-2 space-x-reverse">
-                        <RadioGroupItem value="violation" id="violation" />
-                        <label htmlFor="violation" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          نقض قوانین تست فا
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-2 space-x-reverse">
-                        <RadioGroupItem value="other" id="other" />
-                        <label htmlFor="other" className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          موارد دیگر
-                        </label>
-                      </div>
-                    </RadioGroup>
-                  </div>
-                  <div className="flex justify-end gap-3 mt-4">
-                    <Button
-                      variant="secondary"
-                      onClick={() => setIsReportModalOpen(false)}
-                    >
-                      انصراف
-                    </Button>
-                    <Button
-                      onClick={handleSubmitReport}
-                      className="bg-[#ea384c] hover:bg-red-600"
-                    >
-                      ارسال گزارش
-                    </Button>
-                  </div>
-                </DialogContent>
-              </Dialog>
-              <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                {topic.category}
-              </span>
+                    </DialogContent>
+                  </Dialog>
+                  <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                    {topic.category}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
+                <span>نویسنده: {topic.author}</span>
+                <span>تاریخ: {new Date(topic.date).toLocaleDateString('fa-IR')}</span>
+                <span>پسندیدن: {topic.likes.toLocaleString('fa-IR')}</span>
+                <span>پاسخ‌ها: {topic.replies.length.toLocaleString('fa-IR')}</span>
+              </div>
+
+              <div className="prose prose-gray max-w-none">
+                <p className="text-gray-700 leading-relaxed">
+                  این یک متن نمونه برای نمایش محتوای تاپیک است. در نسخه نهایی، محتوای واقعی تاپیک در این قسمت نمایش داده خواهد شد.
+                </p>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
-            <span>نویسنده: {topic.author}</span>
-            <span>تاریخ: {new Date(topic.date).toLocaleDateString('fa-IR')}</span>
-            <span>پسندیدن: {topic.likes.toLocaleString('fa-IR')}</span>
-            <span>پاسخ‌ها: {topic.replies.length.toLocaleString('fa-IR')}</span>
-          </div>
+          <div className="lg:col-span-4">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-2">
+                  <Trophy className="w-5 h-5 text-[#8B5CF6]" />
+                  <h2 className="text-lg font-semibold">برترین پاسخ‌دهندگان</h2>
+                </div>
+              </div>
 
-          <div className="prose prose-gray max-w-none">
-            <p className="text-gray-700 leading-relaxed">
-              این یک متن نمونه برای نمایش محتوای تاپیک است. در نسخه نهایی، محتوای واقعی تاپیک در این قسمت نمایش داده خواهد شد.
-            </p>
+              <Tabs defaultValue="weekly" className="w-full">
+                <TabsList className="w-full mb-4">
+                  <TabsTrigger value="weekly" className="flex-1">هفتگی</TabsTrigger>
+                  <TabsTrigger value="monthly" className="flex-1">ماهانه</TabsTrigger>
+                  <TabsTrigger value="allTime" className="flex-1">کل</TabsTrigger>
+                </TabsList>
+
+                {["weekly", "monthly", "allTime"].map((period) => (
+                  <TabsContent key={period} value={period}>
+                    <div className="space-y-4">
+                      {leaderboardData[period].map((user, index) => (
+                        <div key={user.id} className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <span className="text-sm font-medium text-gray-500 w-5">
+                              {(index + 1).toLocaleString('fa-IR')}
+                            </span>
+                            <Avatar className="w-8 h-8">
+                              <AvatarImage src={user.avatar} />
+                              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <span className="font-medium">{user.name}</span>
+                          </div>
+                          <span className="font-semibold text-[#8B5CF6]">
+                            {user.score.toLocaleString('fa-IR')}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            </div>
           </div>
         </div>
 
-        {/* Replies Section */}
-        <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
-          <div className="flex items-center gap-2 mb-6">
-            <MessageSquare className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
-          </div>
-          
-          <div className="space-y-4">
-            {topic.replies.map((reply) => (
-              <ReplyComponent 
-                key={reply.id} 
-                reply={reply}
-                onReply={(parentId) => console.log('Reply to:', parentId)}
-              />
-            ))}
+        <div className="lg:col-span-8">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center gap-2 mb-6">
+              <MessageSquare className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
+            </div>
+            
+            <div className="space-y-4">
+              {topic.replies.map((reply) => (
+                <ReplyComponent 
+                  key={reply.id} 
+                  reply={reply}
+                  onReply={(parentId) => console.log('Reply to:', parentId)}
+                />
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* New Response Section */}
-        <div id="reply-section" className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-          <div className="flex items-center gap-2 mb-4">
-            <MessageSquare className="w-5 h-5 text-primary" />
-            <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
+        <div className="lg:col-span-8">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="flex items-center gap-2 mb-4">
+              <MessageSquare className="w-5 h-5 text-primary" />
+              <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
+            </div>
+            
+            <Textarea
+              placeholder="پاسخ خود را اینجا بنویسید..."
+              className="min-h-[150px] mb-4"
+              value={response}
+              onChange={(e) => setResponse(e.target.value)}
+            />
+            
+            <Button 
+              className="flex items-center gap-2"
+              onClick={handleSubmitResponse}
+            >
+              <Send className="w-4 h-4" />
+              <span>ارسال پاسخ</span>
+            </Button>
           </div>
-          
-          <Textarea
-            placeholder="پاسخ خود را اینجا بنویسید..."
-            className="min-h-[150px] mb-4"
-            value={response}
-            onChange={(e) => setResponse(e.target.value)}
-          />
-          
-          <Button 
-            className="flex items-center gap-2"
-            onClick={handleSubmitResponse}
-          >
-            <Send className="w-4 h-4" />
-            <span>ارسال پاسخ</span>
-          </Button>
         </div>
       </div>
     </div>
