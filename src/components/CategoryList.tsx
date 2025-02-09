@@ -36,7 +36,7 @@ const CategoryList = ({
   onSelectCategory: (category: string | null) => void;
 }) => {
   return (
-    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 w-64 h-[calc(100vh-2rem)] overflow-y-auto">
+    <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 w-64">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">دسته‌بندی‌ها</h2>
       <div className="space-y-2">
         <motion.div
