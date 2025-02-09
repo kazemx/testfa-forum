@@ -1,4 +1,3 @@
-
 import { AlertTriangle, ArrowRight, MessageSquare, Send } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -263,13 +262,15 @@ const TopicDetail = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-4">
-            <Leaderboard data={leaderboardData} />
-            <LatestPosts />
+          <div className="lg:col-span-4 h-full flex flex-col">
+            <div className="h-full flex-grow">
+              <Leaderboard data={leaderboardData} />
+              <LatestPosts />
+            </div>
           </div>
 
           <div className="lg:col-span-8">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-6">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
