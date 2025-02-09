@@ -1,7 +1,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen } from "lucide-react";
+import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
 
 type Topic = {
   id: number;
@@ -190,21 +200,89 @@ export default function TopicList({
   selectedCategory: string | null;
   searchQuery: string;
 }) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
   const sortedTopics = sortTopics(topics, activeTab, selectedCategory, searchQuery);
+  const totalPages = Math.ceil(sortedTopics.length / itemsPerPage);
+  
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentTopics = sortedTopics.slice(startIndex, endIndex);
   const navigate = useNavigate();
+
+  const renderPaginationItems = () => {
+    let items = [];
+    const maxVisiblePages = 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+
+    // Adjust startPage if endPage is at maximum
+    startPage = Math.max(1, endPage - maxVisiblePages + 1);
+
+    // Add first page if not included in range
+    if (startPage > 1) {
+      items.push(
+        <PaginationItem key="1">
+          <PaginationLink onClick={() => setCurrentPage(1)}>۱</PaginationLink>
+        </PaginationItem>
+      );
+      if (startPage > 2) {
+        items.push(
+          <PaginationItem key="ellipsis1">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+    }
+
+    // Add pages in range
+    for (let i = startPage; i <= endPage; i++) {
+      items.push(
+        <PaginationItem key={i}>
+          <PaginationLink 
+            isActive={currentPage === i}
+            onClick={() => setCurrentPage(i)}
+          >
+            {i.toLocaleString('fa-IR')}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    // Add last page if not included in range
+    if (endPage < totalPages) {
+      if (endPage < totalPages - 1) {
+        items.push(
+          <PaginationItem key="ellipsis2">
+            <PaginationEllipsis />
+          </PaginationItem>
+        );
+      }
+      items.push(
+        <PaginationItem key={totalPages}>
+          <PaginationLink onClick={() => setCurrentPage(totalPages)}>
+            {totalPages.toLocaleString('fa-IR')}
+          </PaginationLink>
+        </PaginationItem>
+      );
+    }
+
+    return items;
+  };
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        key={`${activeTab}-${selectedCategory}`}
+        key={`${activeTab}-${selectedCategory}-${currentPage}`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -20 }}
         transition={{ duration: 0.3 }}
         dir="rtl"
+        className="space-y-4"
       >
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-          {sortedTopics.map((topic) => (
+          {currentTopics.map((topic) => (
             <motion.div
               key={topic.id}
               layout
@@ -275,6 +353,28 @@ export default function TopicList({
             </motion.div>
           ))}
         </div>
+
+        {totalPages > 1 && (
+          <Pagination dir="rtl" className="mt-8">
+            <PaginationContent className="flex-row-reverse">
+              <PaginationItem>
+                <PaginationPrevious 
+                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                  className="flex-row-reverse"
+                  aria-disabled={currentPage === 1}
+                />
+              </PaginationItem>
+              {renderPaginationItems()}
+              <PaginationItem>
+                <PaginationNext 
+                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                  className="flex-row-reverse"
+                  aria-disabled={currentPage === totalPages}
+                />
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        )}
       </motion.div>
     </AnimatePresence>
   );
