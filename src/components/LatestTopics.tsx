@@ -12,6 +12,9 @@ interface LatestTopicsProps {
 }
 
 const LatestTopics = ({ category, topics }: LatestTopicsProps) => {
+  // Get only the last 5 topics
+  const latestTopics = topics.slice(0, 5);
+
   return (
     <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
       <div className="flex items-center gap-2 mb-6">
@@ -20,8 +23,8 @@ const LatestTopics = ({ category, topics }: LatestTopicsProps) => {
       </div>
       
       <div className="space-y-4">
-        {topics.map((topic) => (
-          <div key={topic.id} className="flex items-center justify-between">
+        {latestTopics.map((topic) => (
+          <div key={topic.id} className="flex items-center justify-between hover:bg-gray-50 p-2 rounded-lg transition-colors">
             <div className="flex items-center gap-3">
               <span className="text-sm font-medium text-gray-700 line-clamp-1">
                 {topic.title}
