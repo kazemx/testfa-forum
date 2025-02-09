@@ -264,48 +264,48 @@ const TopicDetail = () => {
           <div className="lg:col-span-4">
             <Leaderboard data={leaderboardData} />
           </div>
-        </div>
 
-        <div className="lg:col-span-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
-            <div className="flex items-center gap-2 mb-6">
-              <MessageSquare className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
-            </div>
-            
-            <div className="space-y-4">
-              {topic.replies.map((reply) => (
-                <Reply 
-                  key={reply.id} 
-                  reply={reply}
-                  onReply={(parentId) => console.log('Reply to:', parentId)}
-                />
-              ))}
+          <div className="lg:col-span-8">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+              <div className="flex items-center gap-2 mb-6">
+                <MessageSquare className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
+              </div>
+              
+              <div className="space-y-4">
+                {topic.replies.map((reply) => (
+                  <Reply 
+                    key={reply.id} 
+                    reply={reply}
+                    onReply={(parentId) => console.log('Reply to:', parentId)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="lg:col-span-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
-            <div className="flex items-center gap-2 mb-4">
-              <MessageSquare className="w-5 h-5 text-primary" />
-              <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
+          <div className="lg:col-span-8">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+              <div className="flex items-center gap-2 mb-4">
+                <MessageSquare className="w-5 h-5 text-primary" />
+                <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
+              </div>
+              
+              <Textarea
+                placeholder="پاسخ خود را اینجا بنویسید..."
+                className="min-h-[150px] mb-4"
+                value={response}
+                onChange={(e) => setResponse(e.target.value)}
+              />
+              
+              <Button 
+                className="flex items-center gap-2"
+                onClick={handleSubmitResponse}
+              >
+                <Send className="w-4 h-4" />
+                <span>ارسال پاسخ</span>
+              </Button>
             </div>
-            
-            <Textarea
-              placeholder="پاسخ خود را اینجا بنویسید..."
-              className="min-h-[150px] mb-4"
-              value={response}
-              onChange={(e) => setResponse(e.target.value)}
-            />
-            
-            <Button 
-              className="flex items-center gap-2"
-              onClick={handleSubmitResponse}
-            >
-              <Send className="w-4 h-4" />
-              <span>ارسال پاسخ</span>
-            </Button>
           </div>
         </div>
       </div>
