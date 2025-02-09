@@ -102,7 +102,7 @@ const TopicDetail = () => {
         <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">متاسفانه موضوع مورد نظر یافت نشد</h1>
-            <Button onClick={() => navigate('/')}>بازگشت به صه اصلی</Button>
+            <Button onClick={() => navigate('/')}>با��گشت به صه اصلی</Button>
           </div>
         </div>
       </div>
