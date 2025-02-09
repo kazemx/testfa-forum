@@ -1,3 +1,4 @@
+
 import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp, Trophy } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -374,7 +375,7 @@ const TopicDetail = () => {
 
               <div className="prose prose-gray max-w-none">
                 <p className="text-gray-700 leading-relaxed">
-                  این یک متن نمونه برای نمایش محتوای تاپیک است. در نسخه نهایی، محتوای واقعی تاپیک در این قسمت نمایش داده خواهد شد.
+                  {topic.content || "این یک متن نمونه برای نمایش محتوای تاپیک است. در نسخه نهایی، محتوای واقعی تاپیک در این قسمت نمایش داده خواهد شد."}
                 </p>
               </div>
             </div>
