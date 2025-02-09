@@ -157,6 +157,114 @@ const topics: Topic[] = [
     likes: 234,
     replies: 78,
     category: "اقتصاد"
+  },
+  {
+    id: 13,
+    title: "قواعد اللغة العربية",
+    author: "محمد عبدالله",
+    date: "2024-03-08",
+    likes: 167,
+    replies: 45,
+    category: "عربی"
+  },
+  {
+    id: 14,
+    title: "الأدب العربي المعاصر",
+    author: "فاطمة الزهراء",
+    date: "2024-03-07",
+    likes: 198,
+    replies: 67,
+    category: "عربی"
+  },
+  {
+    id: 15,
+    title: "النحو والصرف",
+    author: "احمد حسین",
+    date: "2024-03-06",
+    likes: 145,
+    replies: 34,
+    category: "عربی"
+  },
+  {
+    id: 16,
+    title: "البلاغة العربية",
+    author: "زینب محمود",
+    date: "2024-03-05",
+    likes: 178,
+    replies: 56,
+    category: "عربی"
+  },
+  {
+    id: 17,
+    title: "اصول اقتصاد کلان",
+    author: "علی رضایی",
+    date: "2024-03-04",
+    likes: 234,
+    replies: 78,
+    category: "اقتصاد"
+  },
+  {
+    id: 18,
+    title: "بازارهای مالی",
+    author: "سارا کریمی",
+    date: "2024-03-03",
+    likes: 156,
+    replies: 43,
+    category: "اقتصاد"
+  },
+  {
+    id: 19,
+    title: "اقتصاد بین‌الملل",
+    author: "حسین محمدی",
+    date: "2024-03-02",
+    likes: 189,
+    replies: 55,
+    category: "اقتصاد"
+  },
+  {
+    id: 20,
+    title: "سیاست‌های پولی و مالی",
+    author: "مریم عباسی",
+    date: "2024-03-01",
+    likes: 212,
+    replies: 67,
+    category: "اقتصاد"
+  },
+  {
+    id: 21,
+    title: "تاریخ اسلام",
+    author: "محمد حسینی",
+    date: "2024-02-29",
+    likes: 245,
+    replies: 89,
+    category: "تاریخ"
+  },
+  {
+    id: 22,
+    title: "تمدن هخامنشی",
+    author: "رضا کاظمی",
+    date: "2024-02-28",
+    likes: 178,
+    replies: 45,
+    category: "تاریخ"
+  },
+  {
+    id: 23,
+    title: "تاریخ معاصر ایران",
+    author: "زهرا نوری",
+    date: "2024-02-27",
+    likes: 223,
+    replies: 76,
+    category: "تاریخ"
+  },
+  {
+    id: 24,
+    title: "انقلاب اسلامی",
+    author: "امیر تقوی",
+    date: "2024-02-26",
+    likes: 267,
+    replies: 92,
+    category: "تاریخ"
   }
 ];
 
