@@ -10,26 +10,6 @@ import { Reply } from "@/components/Reply";
 import { Leaderboard } from "@/components/Leaderboard";
 import { Topic, LeaderboardData } from "@/types/topic";
 
-type Reply = {
-  id: number;
-  author: string;
-  content: string;
-  date: string;
-  likes: number;
-  replies?: Reply[];
-};
-
-type Topic = {
-  id: number;
-  title: string;
-  author: string;
-  date: string;
-  category: string;
-  content: string;
-  likes: number;
-  replies: Reply[];
-};
-
 const topics: Topic[] = [
   {
     id: 1,
