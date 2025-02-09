@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
@@ -210,62 +211,98 @@ export default function TopicList({
   const currentTopics = sortedTopics.slice(startIndex, endIndex);
   const navigate = useNavigate();
 
+  const toFarsiNumber = (n: number) => {
+    const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return n.toString().split('').map(x => farsiDigits[Number(x)]).join('');
+  };
+
   const renderPaginationItems = () => {
     let items = [];
-    const maxVisiblePages = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // Add previous button
+    items.push(
+      <PaginationItem key="prev">
+        <PaginationLink 
+          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+          className="flex-row-reverse"
+          disabled={currentPage === 1}
+        >
+          <ChevronRight className="h-4 w-4" />
+        </PaginationLink>
+      </PaginationItem>
+    );
 
-    // Adjust startPage if endPage is at maximum
-    startPage = Math.max(1, endPage - maxVisiblePages + 1);
-
-    // Add first page if not included in range
-    if (startPage > 1) {
-      items.push(
-        <PaginationItem key="1">
-          <PaginationLink onClick={() => setCurrentPage(1)}>۱</PaginationLink>
-        </PaginationItem>
-      );
-      if (startPage > 2) {
-        items.push(
-          <PaginationItem key="ellipsis1">
-            <PaginationEllipsis />
-          </PaginationItem>
-        );
-      }
-    }
+    // Add first page
+    items.push(
+      <PaginationItem key="1">
+        <PaginationLink 
+          onClick={() => setCurrentPage(1)}
+          isActive={currentPage === 1}
+        >
+          {toFarsiNumber(1)}
+        </PaginationLink>
+      </PaginationItem>
+    );
 
     // Add pages in range
+    let startPage = Math.max(2, currentPage - 2);
+    let endPage = Math.min(totalPages - 1, currentPage + 2);
+
+    if (startPage > 2) {
+      items.push(
+        <PaginationItem key="ellipsis1">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
     for (let i = startPage; i <= endPage; i++) {
       items.push(
         <PaginationItem key={i}>
           <PaginationLink 
-            isActive={currentPage === i}
             onClick={() => setCurrentPage(i)}
+            isActive={currentPage === i}
           >
-            {i.toLocaleString('fa-IR')}
+            {toFarsiNumber(i)}
           </PaginationLink>
         </PaginationItem>
       );
     }
 
-    // Add last page if not included in range
-    if (endPage < totalPages) {
-      if (endPage < totalPages - 1) {
-        items.push(
-          <PaginationItem key="ellipsis2">
-            <PaginationEllipsis />
-          </PaginationItem>
-        );
-      }
+    if (endPage < totalPages - 1) {
+      items.push(
+        <PaginationItem key="ellipsis2">
+          <PaginationEllipsis />
+        </PaginationItem>
+      );
+    }
+
+    // Add last page if not already included
+    if (totalPages > 1) {
       items.push(
         <PaginationItem key={totalPages}>
-          <PaginationLink onClick={() => setCurrentPage(totalPages)}>
-            {totalPages.toLocaleString('fa-IR')}
+          <PaginationLink 
+            onClick={() => setCurrentPage(totalPages)}
+            isActive={currentPage === totalPages}
+          >
+            {toFarsiNumber(totalPages)}
           </PaginationLink>
         </PaginationItem>
       );
     }
+
+    // Add next button
+    items.push(
+      <PaginationItem key="next">
+        <PaginationLink 
+          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+          className="flex-row-reverse"
+          disabled={currentPage === totalPages}
+        >
+          <ChevronLeft className="h-4 w-4" />
+        </PaginationLink>
+      </PaginationItem>
+    );
 
     return items;
   };
@@ -356,22 +393,8 @@ export default function TopicList({
 
         {totalPages > 1 && (
           <Pagination dir="rtl" className="mt-8">
-            <PaginationContent className="flex-row-reverse">
-              <PaginationItem>
-                <PaginationPrevious 
-                  onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-                  className="flex-row-reverse"
-                  aria-disabled={currentPage === 1}
-                />
-              </PaginationItem>
+            <PaginationContent className="flex-row-reverse gap-1">
               {renderPaginationItems()}
-              <PaginationItem>
-                <PaginationNext 
-                  onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-                  className="flex-row-reverse"
-                  aria-disabled={currentPage === totalPages}
-                />
-              </PaginationItem>
             </PaginationContent>
           </Pagination>
         )}
