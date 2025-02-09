@@ -171,8 +171,9 @@ const TopicDetail = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-3 lg:order-1">
-            <div className="sticky top-8">
+            <div className="space-y-6 sticky top-8">
               <Leaderboard data={leaderboardData} />
+              <LatestPosts />
             </div>
           </div>
 
