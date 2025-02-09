@@ -163,35 +163,7 @@ const TopicDetail = () => {
           <span>بازگشت</span>
         </Button>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
-          <div className="lg:col-span-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-[#F2FCE2] rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">پاسخ‌های فعال</h3>
-              <p className="text-3xl font-bold">۲۴</p>
-            </div>
-            <div className="bg-[#FEF7CD] rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">بازدید‌ها</h3>
-              <p className="text-3xl font-bold">۱۵۶</p>
-            </div>
-            <div className="bg-[#E5DEFF] rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">امتیاز</h3>
-              <p className="text-3xl font-bold">۸۵</p>
-            </div>
-          </div>
-          
-          <div className="lg:col-span-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="bg-[#FFDEE2] rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">پسندها</h3>
-              <p className="text-3xl font-bold">۴۲</p>
-            </div>
-            <div className="bg-[#FEC6A1] rounded-xl p-6 shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">اشتراک‌ها</h3>
-              <p className="text-3xl font-bold">۱۲</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <div className="lg:col-span-8">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
@@ -295,7 +267,7 @@ const TopicDetail = () => {
         </div>
 
         <div className="lg:col-span-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
             <div className="flex items-center gap-2 mb-6">
               <MessageSquare className="w-5 h-5 text-primary" />
               <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
@@ -314,7 +286,7 @@ const TopicDetail = () => {
         </div>
 
         <div className="lg:col-span-8">
-          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
             <div className="flex items-center gap-2 mb-4">
               <MessageSquare className="w-5 h-5 text-primary" />
               <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
