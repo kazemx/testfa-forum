@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
@@ -6,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { BookOpen, Search, Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import MobileCategoryFilter from "@/components/MobileCategoryFilter";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Popular topics data
 const popularTopics = [
@@ -39,6 +40,7 @@ const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -84,12 +86,14 @@ const Index = () => {
               searchQuery={searchQuery}
             />
           </div>
-          <div className="hidden md:block">
-            <CategoryList 
-              selectedCategory={selectedCategory}
-              onSelectCategory={setSelectedCategory}
-            />
-          </div>
+          {!isMobile && (
+            <div className="hidden md:block">
+              <CategoryList 
+                selectedCategory={selectedCategory}
+                onSelectCategory={setSelectedCategory}
+              />
+            </div>
+          )}
         </div>
       </div>
 
@@ -151,6 +155,11 @@ const Index = () => {
           ))}
         </div>
       </div>
+
+      <MobileCategoryFilter 
+        selectedCategory={selectedCategory}
+        onSelectCategory={setSelectedCategory}
+      />
     </div>
   );
 };
