@@ -1,3 +1,4 @@
+
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
@@ -201,7 +202,7 @@ export default function TopicList({
   searchQuery: string;
 }) {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 12; // Changed from 8 to 12
   const sortedTopics = sortTopics(topics, activeTab, selectedCategory, searchQuery);
   const totalPages = Math.ceil(sortedTopics.length / itemsPerPage);
   
