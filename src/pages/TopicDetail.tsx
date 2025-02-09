@@ -1,5 +1,4 @@
-
-import { AlertTriangle, ArrowRight, MessageCircle, MessageSquare, Send, ThumbsUp, Trophy } from "lucide-react";
+import { AlertTriangle, ArrowRight, MessageSquare, Send } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,8 +6,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Reply } from "@/components/Reply";
+import { Leaderboard } from "@/components/Leaderboard";
+import { Topic, LeaderboardData } from "@/types/topic";
 
 type Reply = {
   id: number;
@@ -25,6 +25,7 @@ type Topic = {
   author: string;
   date: string;
   category: string;
+  content: string;
   likes: number;
   replies: Reply[];
 };
@@ -36,6 +37,7 @@ const topics: Topic[] = [
     author: "علی محمدی",
     date: "2024-01-15",
     category: "آموزشی",
+    content: "سلام، من می‌خوام React رو یاد بگیرم و نمی‌دونم از کجا شروع کنم. لطفاً راهنمایی کنید.",
     likes: 24,
     replies: [
       {
@@ -70,6 +72,7 @@ const topics: Topic[] = [
     author: "مریم حسینی",
     date: "2024-01-14",
     category: "منابع",
+    content: "پروژه‌های عملی خیلی مهم هستند. سعی کنید همزمان با یادگیری، پروژه‌های کوچک انجام بدید.",
     likes: 15,
     replies: [
       {
@@ -84,97 +87,22 @@ const topics: Topic[] = [
   }
 ];
 
-const leaderboardData = {
+const leaderboardData: LeaderboardData = {
   weekly: [
     { id: 1, name: "علی رضایی", score: 45, avatar: "" },
     { id: 2, name: "مریم احمدی", score: 38, avatar: "" },
     { id: 3, name: "رضا محمدی", score: 32, avatar: "" },
-    // Add more users...
   ],
   monthly: [
     { id: 1, name: "سارا کریمی", score: 156, avatar: "" },
     { id: 2, name: "محمد حسینی", score: 142, avatar: "" },
     { id: 3, name: "زهرا نوری", score: 128, avatar: "" },
-    // Add more users...
   ],
   allTime: [
     { id: 1, name: "حسین رضایی", score: 892, avatar: "" },
     { id: 2, name: "فاطمه محمدی", score: 765, avatar: "" },
     { id: 3, name: "علی احمدی", score: 643, avatar: "" },
-    // Add more users...
   ],
-};
-
-const ReplyComponent = ({ reply, onReply }: { reply: Reply; onReply: (parentId: number) => void }) => {
-  const [showReplyForm, setShowReplyForm] = useState(false);
-  const [replyContent, setReplyContent] = useState("");
-  const { toast } = useToast();
-
-  const handleSubmitReply = () => {
-    if (!replyContent.trim()) {
-      toast({
-        title: "خطا",
-        description: "لطفا پاسخ خود را وارد کنید",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    toast({
-      title: "موفق",
-      description: "پاسخ شما با موفقیت ثبت شد",
-    });
-    setReplyContent("");
-    setShowReplyForm(false);
-  };
-
-  return (
-    <div className="border-r border-gray-200 pr-4 mb-4">
-      <div className="bg-gray-50 rounded-lg p-4 mb-2">
-        <div className="flex justify-between items-start mb-2">
-          <div className="font-medium text-gray-900">{reply.author}</div>
-          <div className="text-sm text-gray-500">{new Date(reply.date).toLocaleDateString('fa-IR')}</div>
-        </div>
-        <p className="text-gray-700 mb-2">{reply.content}</p>
-        <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1 text-gray-500 hover:text-gray-700">
-            <ThumbsUp className="w-4 h-4" />
-            <span>{reply.likes}</span>
-          </button>
-          <button 
-            className="flex items-center gap-1 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowReplyForm(!showReplyForm)}
-          >
-            <MessageCircle className="w-4 h-4" />
-            <span>پاسخ</span>
-          </button>
-        </div>
-      </div>
-
-      {showReplyForm && (
-        <div className="mt-2 mb-4">
-          <Textarea
-            placeholder="پاسخ خود را بنویسید..."
-            value={replyContent}
-            onChange={(e) => setReplyContent(e.target.value)}
-            className="mb-2"
-          />
-          <div className="flex gap-2">
-            <Button onClick={handleSubmitReply}>ارسال پاسخ</Button>
-            <Button variant="outline" onClick={() => setShowReplyForm(false)}>انصراف</Button>
-          </div>
-        </div>
-      )}
-
-      {reply.replies && reply.replies.length > 0 && (
-        <div className="mr-4">
-          {reply.replies.map((nestedReply) => (
-            <ReplyComponent key={nestedReply.id} reply={nestedReply} onReply={onReply} />
-          ))}
-        </div>
-      )}
-    </div>
-  );
 };
 
 const TopicDetail = () => {
@@ -193,7 +121,7 @@ const TopicDetail = () => {
         <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">متاسفانه موضوع مورد نظر یافت نشد</h1>
-            <Button onClick={() => navigate('/')}>بازگشت به صفحه اصلی</Button>
+            <Button onClick={() => navigate('/')}>بازگشت به صه اصلی</Button>
           </div>
         </div>
       </div>
@@ -382,46 +310,7 @@ const TopicDetail = () => {
           </div>
 
           <div className="lg:col-span-4">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <Trophy className="w-5 h-5 text-[#8B5CF6]" />
-                  <h2 className="text-lg font-semibold">برترین پاسخ‌دهندگان</h2>
-                </div>
-              </div>
-
-              <Tabs defaultValue="weekly" className="w-full">
-                <TabsList className="w-full mb-4">
-                  <TabsTrigger value="weekly" className="flex-1">هفتگی</TabsTrigger>
-                  <TabsTrigger value="monthly" className="flex-1">ماهانه</TabsTrigger>
-                  <TabsTrigger value="allTime" className="flex-1">کل</TabsTrigger>
-                </TabsList>
-
-                {["weekly", "monthly", "allTime"].map((period) => (
-                  <TabsContent key={period} value={period}>
-                    <div className="space-y-4">
-                      {leaderboardData[period].map((user, index) => (
-                        <div key={user.id} className="flex items-center justify-between">
-                          <div className="flex items-center gap-3">
-                            <span className="text-sm font-medium text-gray-500 w-5">
-                              {(index + 1).toLocaleString('fa-IR')}
-                            </span>
-                            <Avatar className="w-8 h-8">
-                              <AvatarImage src={user.avatar} />
-                              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                            </Avatar>
-                            <span className="font-medium">{user.name}</span>
-                          </div>
-                          <span className="font-semibold text-[#8B5CF6]">
-                            {user.score.toLocaleString('fa-IR')}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
-                ))}
-              </Tabs>
-            </div>
+            <Leaderboard data={leaderboardData} />
           </div>
         </div>
 
@@ -434,7 +323,7 @@ const TopicDetail = () => {
             
             <div className="space-y-4">
               {topic.replies.map((reply) => (
-                <ReplyComponent 
+                <Reply 
                   key={reply.id} 
                   reply={reply}
                   onReply={(parentId) => console.log('Reply to:', parentId)}
