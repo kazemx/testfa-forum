@@ -1,3 +1,4 @@
+
 import { AlertTriangle, ArrowRight, MessageSquare, Send } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,7 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Reply } from "@/components/Reply";
 import { Leaderboard } from "@/components/Leaderboard";
-import { Topic } from "@/types/topic";
+import { Topic, LeaderboardData } from "@/types/topic";
 import LatestPosts from "@/components/LatestPosts";
 
 const topics: Topic[] = [
