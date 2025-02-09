@@ -1,4 +1,3 @@
-
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
@@ -223,9 +222,8 @@ export default function TopicList({
     items.push(
       <PaginationItem key="prev">
         <PaginationLink 
-          onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
-          className="flex-row-reverse"
-          disabled={currentPage === 1}
+          onClick={() => currentPage > 1 && setCurrentPage(currentPage - 1)}
+          className={`flex-row-reverse ${currentPage === 1 ? 'pointer-events-none opacity-50' : ''}`}
         >
           <ChevronRight className="h-4 w-4" />
         </PaginationLink>
@@ -295,9 +293,8 @@ export default function TopicList({
     items.push(
       <PaginationItem key="next">
         <PaginationLink 
-          onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
-          className="flex-row-reverse"
-          disabled={currentPage === totalPages}
+          onClick={() => currentPage < totalPages && setCurrentPage(currentPage + 1)}
+          className={`flex-row-reverse ${currentPage === totalPages ? 'pointer-events-none opacity-50' : ''}`}
         >
           <ChevronLeft className="h-4 w-4" />
         </PaginationLink>
