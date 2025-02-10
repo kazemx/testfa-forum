@@ -2,6 +2,14 @@
 import { UserCircle } from "lucide-react";
 
 const Profile = () => {
+  // These would ideally come from an API/database
+  const stats = [
+    { label: "درباره‌ی من", value: "" },
+    { label: "پاسخ‌های من", value: "۲" },
+    { label: "موضوع‌ها", value: "۵" },
+    { label: "پشتیبانی", value: "۱" },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-12" dir="rtl">
@@ -17,6 +25,20 @@ const Profile = () => {
           </div>
           
           <div className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+              {stats.map((stat, index) => (
+                <div 
+                  key={index}
+                  className="p-4 rounded-lg border border-gray-200 hover:border-primary/50 transition-colors"
+                >
+                  <h3 className="text-lg font-semibold mb-2">{stat.label}</h3>
+                  <p className="text-3xl font-bold text-primary">
+                    {stat.value || "-"}
+                  </p>
+                </div>
+              ))}
+            </div>
+            
             <div>
               <h2 className="text-lg font-semibold mb-4">فعالیت‌های اخیر</h2>
               <p className="text-gray-500">هنوز فعالیتی ثبت نشده است.</p>
