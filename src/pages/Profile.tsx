@@ -108,8 +108,12 @@ const Profile = () => {
               </div>
               <div className="text-right">
                 <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
-                <div className="text-gray-600 max-w-xl whitespace-pre-line break-words leading-relaxed">
-                  {aboutMe}
+                <div className="text-gray-600 max-w-xl mt-2">
+                  {aboutMe.split('\n').map((paragraph, index) => (
+                    <p key={index} className="mb-2 leading-relaxed">
+                      {paragraph}
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
