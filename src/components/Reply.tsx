@@ -19,8 +19,8 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { toast } = useToast();
 
-  // Temporary auth state - replace with actual auth state later
-  const isAuthenticated = false;
+  // Use the same auth state from LoginButton
+  const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
 
   const handleReplyClick = () => {
     if (!isAuthenticated) {
@@ -49,9 +49,11 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
   };
 
   const handleLogin = (phone: string, password: string) => {
-    // Implement login logic here
-    console.log("Login attempt:", { phone, password });
-    setShowLoginModal(false);
+    // Call the same login function as LoginButton
+    if (phone === "09010814978" && password === "1234") {
+      localStorage.setItem('isAuthenticated', 'true');
+      setShowLoginModal(false);
+    }
   };
 
   return (

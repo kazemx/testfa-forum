@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { LogIn, UserCircle } from "lucide-react";
 import LoginModal from "./LoginModal";
@@ -18,8 +18,11 @@ const LoginButton = () => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const navigate = useNavigate();
   
-  // Temporary auth state - replace with Supabase auth later
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  // Use localStorage to persist auth state
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem('isAuthenticated') === 'true';
+  });
+
   const testUser = {
     phone: "09010814978",
     password: "1234",
@@ -29,12 +32,14 @@ const LoginButton = () => {
   const handleLogin = (phone: string, password: string) => {
     if (phone === testUser.phone && password === testUser.password) {
       setIsAuthenticated(true);
+      localStorage.setItem('isAuthenticated', 'true');
       setShowLoginModal(false);
     }
   };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
+    localStorage.removeItem('isAuthenticated');
   };
 
   if (isAuthenticated) {
