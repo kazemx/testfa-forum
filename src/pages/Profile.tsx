@@ -106,12 +106,8 @@ const Profile = () => {
               </div>
               <div className="text-right">
                 <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
-                <div className="text-gray-600 max-w-xl mt-2">
-                  {aboutMe.split('\n').map((paragraph, index) => (
-                    <p key={index} className="mb-2 leading-relaxed">
-                      {paragraph}
-                    </p>
-                  ))}
+                <div className="text-gray-600 max-w-xl mt-2 whitespace-pre-line break-words leading-relaxed">
+                  {aboutMe}
                 </div>
               </div>
             </div>
@@ -132,7 +128,7 @@ const Profile = () => {
                     <div className="text-right w-full">
                       <div>{stat.label}</div>
                       <div className="text-xl font-bold text-primary mt-1">
-                        {stat.value || "-"}
+                        {index === 0 ? "" : stat.value}
                       </div>
                     </div>
                   </TabsTrigger>
