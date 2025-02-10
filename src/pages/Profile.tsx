@@ -1,5 +1,4 @@
 
-```tsx
 import { UserCircle } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -207,4 +206,3 @@ const Profile = () => {
 };
 
 export default Profile;
-```
