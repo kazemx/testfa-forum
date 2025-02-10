@@ -1,3 +1,4 @@
+
 import { UserCircle } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,16 +23,13 @@ import {
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [aboutMe, setAboutMe] = useState(`من یک کاربر فعال در انجمن هستم.
-من همیشه سعی میکنم به سوالات دیگران پاسخ دهم.
-علاقه‌مند به برنامه‌نویسی و یادگیری تکنولوژی‌های جدید هستم.
-همیشه آماده کمک به دیگران در مسیر یادگیری هستم.`);
+  const [aboutMe, setAboutMe] = useState(`ما اینجا هستیم تا با پشتوانه یک تیم جوان، متخصص و خلاق خود فارغ التحصیلان دانشگاه های برتر کشور، شما را در رسیدن به آرزوهایتان همراهی کنیم تا با پشتوانه یک تیم جوان، متخصص و خلاق خود فارغ التحصیلان دانشگاه های برتر کشور، شما را در رسیدن به آرزوهایتان همراهی کنیم. ما مسیر موفقیت و همچنین رسیدن به جایگاه برتر را به خوبی می شناسیم. تیم ما قبل از شما بسیاری را در این مسیر همراهی کرده است. نوید ما به شما تضمین آینده است.`);
   const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   
   // Profile form state
-  const [firstName, setFirstName] = useState("kazem");
-  const [lastName, setLastName] = useState("mortazavi");
+  const [firstName, setFirstName] = useState("کاظم");
+  const [lastName, setLastName] = useState("مرتضوی");
   const [birthDate, setBirthDate] = useState("1995/07/07");
   
   // Password change form state
