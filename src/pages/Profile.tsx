@@ -84,9 +84,9 @@ const Profile = () => {
                   <TabsTrigger
                     key={index}
                     value={["about", "replies", "topics", "support"][index]}
-                    className="text-lg"
+                    className="text-lg w-full text-right pr-4"
                   >
-                    <div className="text-center">
+                    <div className="text-right w-full">
                       <div>{stat.label}</div>
                       <div className="text-xl font-bold text-primary mt-1">
                         {stat.value || "-"}
