@@ -116,13 +116,13 @@ const Profile = () => {
           </div>
           
           <div className="space-y-6">
-            <Tabs defaultValue="about" className="w-full flex gap-6">
+            <Tabs defaultValue="about" className="w-full flex flex-row-reverse gap-6">
               <TabsList className="flex flex-col h-auto w-48 space-y-2 bg-muted/50 p-2">
                 {stats.map((stat, index) => (
                   <TabsTrigger
                     key={index}
                     value={["about", "replies", "topics", "support", "settings"][index]}
-                    className="w-full text-right justify-between items-center px-4 py-2"
+                    className="w-full text-right px-4 py-2"
                   >
                     <span>{stat.label}</span>
                     {index !== 0 && (
