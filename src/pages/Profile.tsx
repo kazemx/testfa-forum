@@ -1,13 +1,56 @@
 
 import { UserCircle } from "lucide-react";
+import { useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useNavigate } from "react-router-dom";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 const Profile = () => {
+  const navigate = useNavigate();
+  const [aboutMe, setAboutMe] = useState("من یک کاربر فعال در انجمن هستم.");
+  const [isEditing, setIsEditing] = useState(false);
+
   // These would ideally come from an API/database
   const stats = [
     { label: "درباره‌ی من", value: "" },
     { label: "پاسخ‌های من", value: "۲" },
     { label: "موضوع‌ها", value: "۵" },
     { label: "پشتیبانی", value: "۱" },
+  ];
+
+  // Dummy data - would come from API
+  const myReplies = [
+    { id: 1, title: "نحوه نصب React", date: "۱۴۰۲/۱۲/۱۵" },
+    { id: 2, title: "مشکل در اجرای پروژه", date: "۱۴۰۲/۱۲/۱۰" },
+  ];
+
+  const myTopics = [
+    { id: 1, title: "سوال در مورد TypeScript", date: "۱۴۰۲/۱۲/۲۰" },
+    { id: 2, title: "راهنمایی برای Redux", date: "۱۴۰۲/۱۲/۱۸" },
+  ];
+
+  const myTickets = [
+    { 
+      id: 1, 
+      title: "درخواست افزایش سطح دسترسی", 
+      status: "پاسخ داده شده",
+      date: "۱۴۰۲/۱۲/۱۵" 
+    },
+    { 
+      id: 2, 
+      title: "گزارش مشکل در ثبت پاسخ", 
+      status: "در انتظار پاسخ",
+      date: "۱۴۰۲/۱۲/۲۰" 
+    },
   ];
 
   return (
@@ -25,24 +68,126 @@ const Profile = () => {
           </div>
           
           <div className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-              {stats.map((stat, index) => (
-                <div 
-                  key={index}
-                  className="p-4 rounded-lg border border-gray-200 hover:border-primary/50 transition-colors"
-                >
-                  <h3 className="text-lg font-semibold mb-2">{stat.label}</h3>
-                  <p className="text-3xl font-bold text-primary">
-                    {stat.value || "-"}
-                  </p>
+            <Tabs defaultValue="about" className="w-full">
+              <TabsList className="grid w-full grid-cols-1 md:grid-cols-4">
+                {stats.map((stat, index) => (
+                  <TabsTrigger
+                    key={index}
+                    value={["about", "replies", "topics", "support"][index]}
+                    className="text-lg"
+                  >
+                    <div className="text-center">
+                      <div>{stat.label}</div>
+                      <div className="text-xl font-bold text-primary mt-1">
+                        {stat.value || "-"}
+                      </div>
+                    </div>
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+
+              <TabsContent value="about" className="mt-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-semibold">درباره‌ی من</h3>
+                    <Button 
+                      variant="outline"
+                      onClick={() => setIsEditing(!isEditing)}
+                    >
+                      {isEditing ? "ذخیره" : "ویرایش"}
+                    </Button>
+                  </div>
+                  {isEditing ? (
+                    <Textarea
+                      value={aboutMe}
+                      onChange={(e) => setAboutMe(e.target.value)}
+                      className="min-h-[150px]"
+                    />
+                  ) : (
+                    <p className="text-gray-600">{aboutMe}</p>
+                  )}
                 </div>
-              ))}
-            </div>
-            
-            <div>
-              <h2 className="text-lg font-semibold mb-4">فعالیت‌های اخیر</h2>
-              <p className="text-gray-500">هنوز فعالیتی ثبت نشده است.</p>
-            </div>
+              </TabsContent>
+
+              <TabsContent value="replies" className="mt-6">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>عنوان</TableHead>
+                      <TableHead>تاریخ</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {myReplies.map((reply) => (
+                      <TableRow 
+                        key={reply.id}
+                        className="cursor-pointer"
+                        onClick={() => navigate(`/topic/${reply.id}`)}
+                      >
+                        <TableCell>{reply.title}</TableCell>
+                        <TableCell>{reply.date}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TabsContent>
+
+              <TabsContent value="topics" className="mt-6">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>عنوان</TableHead>
+                      <TableHead>تاریخ</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {myTopics.map((topic) => (
+                      <TableRow 
+                        key={topic.id}
+                        className="cursor-pointer"
+                        onClick={() => navigate(`/topic/${topic.id}`)}
+                      >
+                        <TableCell>{topic.title}</TableCell>
+                        <TableCell>{topic.date}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TabsContent>
+
+              <TabsContent value="support" className="mt-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
+                    <Button onClick={() => navigate('/new-ticket')}>
+                      ثبت تیکت جدید
+                    </Button>
+                  </div>
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>عنوان</TableHead>
+                        <TableHead>وضعیت</TableHead>
+                        <TableHead>تاریخ</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {myTickets.map((ticket) => (
+                        <TableRow 
+                          key={ticket.id}
+                          className="cursor-pointer"
+                          onClick={() => navigate(`/ticket/${ticket.id}`)}
+                        >
+                          <TableCell>{ticket.title}</TableCell>
+                          <TableCell>{ticket.status}</TableCell>
+                          <TableCell>{ticket.date}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </div>
