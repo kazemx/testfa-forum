@@ -14,16 +14,16 @@ interface LoginModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onRegisterClick: () => void;
+  onLogin: (phone: string, password: string) => void;
 }
 
-const LoginModal = ({ open, onOpenChange, onRegisterClick }: LoginModalProps) => {
+const LoginModal = ({ open, onOpenChange, onRegisterClick, onLogin }: LoginModalProps) => {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Login logic will be implemented later with Supabase
-    console.log("Login attempt:", { phone, password });
+    onLogin(phone, password);
   };
 
   return (
