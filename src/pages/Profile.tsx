@@ -1,4 +1,5 @@
 
+```tsx
 import { UserCircle } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -53,15 +54,25 @@ const Profile = () => {
     },
   ];
 
+  const handleNavigate = (path: string) => {
+    try {
+      navigate(path);
+    } catch (error) {
+      console.error('Navigation error:', error);
+      // Stay on the current page instead of logging out
+      navigate('/profile');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-12" dir="rtl">
-        <div className="bg-white rounded-lg shadow-sm p-8">
+      <div className="max-w-7xl mx-auto px-4 py-12">
+        <div className="bg-white rounded-lg shadow-sm p-8" dir="rtl">
           <div className="flex items-center gap-4 mb-8">
             <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
               <UserCircle className="w-12 h-12 text-primary" />
             </div>
-            <div>
+            <div className="text-right">
               <h1 className="text-2xl font-bold">کاربر تست</h1>
               <p className="text-gray-500">۰۹۰۱۰۸۱۴۹۷۸</p>
             </div>
@@ -101,10 +112,10 @@ const Profile = () => {
                     <Textarea
                       value={aboutMe}
                       onChange={(e) => setAboutMe(e.target.value)}
-                      className="min-h-[150px]"
+                      className="min-h-[150px] text-right"
                     />
                   ) : (
-                    <p className="text-gray-600">{aboutMe}</p>
+                    <p className="text-gray-600 text-right">{aboutMe}</p>
                   )}
                 </div>
               </TabsContent>
@@ -113,8 +124,8 @@ const Profile = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>عنوان</TableHead>
-                      <TableHead>تاریخ</TableHead>
+                      <TableHead className="text-right">عنوان</TableHead>
+                      <TableHead className="text-right">تاریخ</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -122,10 +133,10 @@ const Profile = () => {
                       <TableRow 
                         key={reply.id}
                         className="cursor-pointer"
-                        onClick={() => navigate(`/topic/${reply.id}`)}
+                        onClick={() => handleNavigate(`/topic/${reply.id}`)}
                       >
-                        <TableCell>{reply.title}</TableCell>
-                        <TableCell>{reply.date}</TableCell>
+                        <TableCell className="text-right">{reply.title}</TableCell>
+                        <TableCell className="text-right">{reply.date}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -136,8 +147,8 @@ const Profile = () => {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>عنوان</TableHead>
-                      <TableHead>تاریخ</TableHead>
+                      <TableHead className="text-right">عنوان</TableHead>
+                      <TableHead className="text-right">تاریخ</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -145,10 +156,10 @@ const Profile = () => {
                       <TableRow 
                         key={topic.id}
                         className="cursor-pointer"
-                        onClick={() => navigate(`/topic/${topic.id}`)}
+                        onClick={() => handleNavigate(`/topic/${topic.id}`)}
                       >
-                        <TableCell>{topic.title}</TableCell>
-                        <TableCell>{topic.date}</TableCell>
+                        <TableCell className="text-right">{topic.title}</TableCell>
+                        <TableCell className="text-right">{topic.date}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -159,16 +170,16 @@ const Profile = () => {
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
-                    <Button onClick={() => navigate('/new-ticket')}>
+                    <Button onClick={() => handleNavigate('/new-ticket')}>
                       ثبت تیکت جدید
                     </Button>
                   </div>
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead>عنوان</TableHead>
-                        <TableHead>وضعیت</TableHead>
-                        <TableHead>تاریخ</TableHead>
+                        <TableHead className="text-right">عنوان</TableHead>
+                        <TableHead className="text-right">وضعیت</TableHead>
+                        <TableHead className="text-right">تاریخ</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -176,11 +187,11 @@ const Profile = () => {
                         <TableRow 
                           key={ticket.id}
                           className="cursor-pointer"
-                          onClick={() => navigate(`/ticket/${ticket.id}`)}
+                          onClick={() => handleNavigate(`/ticket/${ticket.id}`)}
                         >
-                          <TableCell>{ticket.title}</TableCell>
-                          <TableCell>{ticket.status}</TableCell>
-                          <TableCell>{ticket.date}</TableCell>
+                          <TableCell className="text-right">{ticket.title}</TableCell>
+                          <TableCell className="text-right">{ticket.status}</TableCell>
+                          <TableCell className="text-right">{ticket.date}</TableCell>
                         </TableRow>
                       ))}
                     </TableBody>
@@ -196,3 +207,4 @@ const Profile = () => {
 };
 
 export default Profile;
+```
