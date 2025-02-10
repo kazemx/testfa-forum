@@ -108,7 +108,9 @@ const Profile = () => {
               </div>
               <div className="text-right">
                 <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
-                <p className="text-gray-600">{aboutMe}</p>
+                <p className="text-gray-600 max-w-xl whitespace-pre-wrap break-words">
+                  {aboutMe}
+                </p>
               </div>
             </div>
             <Button variant="outline" onClick={() => setIsProfileDialogOpen(true)}>
