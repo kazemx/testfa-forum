@@ -50,7 +50,7 @@ const LoginButton = () => {
             <span>خروج</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48" dir="rtl">
+        <DropdownMenuContent align="end" className="w-48 text-right">
           <DropdownMenuItem onClick={() => navigate('/profile')}>
             پروفایل کاربری
           </DropdownMenuItem>

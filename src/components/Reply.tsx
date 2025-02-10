@@ -48,6 +48,12 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
     setShowReplyForm(false);
   };
 
+  const handleLogin = (phone: string, password: string) => {
+    // Implement login logic here
+    console.log("Login attempt:", { phone, password });
+    setShowLoginModal(false);
+  };
+
   return (
     <div className="border-r border-gray-200 pr-4 mb-4">
       <div className="bg-gray-50 rounded-lg p-4 mb-2">
@@ -93,6 +99,7 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
           setShowLoginModal(false);
           // Handle register click here
         }}
+        onLogin={handleLogin}
       />
 
       {reply.replies && reply.replies.length > 0 && (
