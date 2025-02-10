@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Reply as ReplyType } from "@/types/topic";
+import LoginButton from "./LoginButton";
+import LoginModal from "./LoginModal";
 
 interface ReplyProps {
   reply: ReplyType;
@@ -14,7 +16,19 @@ interface ReplyProps {
 export const Reply = ({ reply, onReply }: ReplyProps) => {
   const [showReplyForm, setShowReplyForm] = useState(false);
   const [replyContent, setReplyContent] = useState("");
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const { toast } = useToast();
+
+  // Temporary auth state - replace with actual auth state later
+  const isAuthenticated = false;
+
+  const handleReplyClick = () => {
+    if (!isAuthenticated) {
+      setShowLoginModal(true);
+      return;
+    }
+    setShowReplyForm(!showReplyForm);
+  };
 
   const handleSubmitReply = () => {
     if (!replyContent.trim()) {
@@ -49,7 +63,7 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
           </button>
           <button 
             className="flex items-center gap-1 text-gray-500 hover:text-gray-700"
-            onClick={() => setShowReplyForm(!showReplyForm)}
+            onClick={handleReplyClick}
           >
             <MessageCircle className="w-4 h-4" />
             <span>پاسخ</span>
@@ -71,6 +85,15 @@ export const Reply = ({ reply, onReply }: ReplyProps) => {
           </div>
         </div>
       )}
+
+      <LoginModal 
+        open={showLoginModal} 
+        onOpenChange={setShowLoginModal}
+        onRegisterClick={() => {
+          setShowLoginModal(false);
+          // Handle register click here
+        }}
+      />
 
       {reply.replies && reply.replies.length > 0 && (
         <div className="mr-4">
