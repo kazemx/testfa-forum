@@ -133,20 +133,20 @@ const Profile = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="flex justify-between items-center mb-6">
           <Button 
-            variant="outline" 
-            onClick={() => handleNavigate('/')}
-            className="flex items-center gap-2"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            بازگشت به صه اصلی
-          </Button>
-          <Button 
             variant="destructive" 
             onClick={handleLogout}
             className="flex items-center gap-2"
           >
             <LogOut className="h-4 w-4" />
             خروج
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => handleNavigate('/')}
+            className="flex items-center gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            بازگشت به صه اصلی
           </Button>
         </div>
 
