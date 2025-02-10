@@ -24,7 +24,7 @@ import {
 const Profile = () => {
   const navigate = useNavigate();
   const [aboutMe, setAboutMe] = useState("من یک کاربر فعال در انجمن هستم.");
-  const [isEditing, setIsEditing] = useState(false);
+  const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   
   // Profile form state
@@ -39,7 +39,7 @@ const Profile = () => {
 
   // These would ideally come from an API/database
   const stats = [
-    { label: "درباره‌ی من", value: "" },
+    { label: "درباره‌ی من", value: aboutMe },
     { label: "پاسخ‌های من", value: "۲" },
     { label: "موضوع‌ها", value: "۵" },
     { label: "پشتیبانی", value: "۱" },
@@ -82,7 +82,7 @@ const Profile = () => {
 
   const handleSaveProfile = () => {
     // Here you would typically make an API call to save the profile
-    setIsEditing(false);
+    setIsProfileDialogOpen(false);
   };
 
   const handleChangePassword = () => {
@@ -101,13 +101,19 @@ const Profile = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="bg-white rounded-lg shadow-sm p-8" dir="rtl">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-              <UserCircle className="w-12 h-12 text-primary" />
+          <div className="flex items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-4">
+              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                <UserCircle className="w-12 h-12 text-primary" />
+              </div>
+              <div className="text-right">
+                <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
+                <p className="text-gray-600">{aboutMe}</p>
+              </div>
             </div>
-            <div className="text-right">
-              <h1 className="text-2xl font-bold">ویرایش پروفایل</h1>
-            </div>
+            <Button variant="outline" onClick={() => setIsProfileDialogOpen(true)}>
+              ویرایش پروفایل
+            </Button>
           </div>
           
           <div className="space-y-6">
@@ -130,65 +136,16 @@ const Profile = () => {
               </TabsList>
 
               <TabsContent value="about" className="mt-6">
-                <div className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="block text-right">نام</label>
-                      <Input
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        className="text-right"
-                        dir="rtl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block text-right">نام خانوادگی</label>
-                      <Input
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        className="text-right"
-                        dir="rtl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="block text-right">روز تولد</label>
-                      <Input
-                        type="text"
-                        value={birthDate}
-                        onChange={(e) => setBirthDate(e.target.value)}
-                        className="text-right"
-                        dir="rtl"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsPasswordDialogOpen(true)}
-                        className="w-full"
-                      >
-                        تغییر گذرواژه
-                      </Button>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="flex justify-between items-center">
-                      <Button onClick={handleSaveProfile}>
-                        ذخیره تغییرات
-                      </Button>
-                      <h3 className="text-lg font-semibold">درباره‌ی من</h3>
-                    </div>
-                    {isEditing ? (
-                      <Textarea
-                        value={aboutMe}
-                        onChange={(e) => setAboutMe(e.target.value)}
-                        className="min-h-[150px] text-right"
-                        dir="rtl"
-                      />
-                    ) : (
-                      <p className="text-gray-600 text-right">{aboutMe}</p>
-                    )}
-                  </div>
+                <div className="text-right space-y-4">
+                  <p><strong>نام:</strong> {firstName}</p>
+                  <p><strong>نام خانوادگی:</strong> {lastName}</p>
+                  <p><strong>تاریخ تولد:</strong> {birthDate}</p>
+                  <Button
+                    variant="outline"
+                    onClick={() => setIsPasswordDialogOpen(true)}
+                  >
+                    تغییر گذرواژه
+                  </Button>
                 </div>
               </TabsContent>
 
@@ -275,6 +232,61 @@ const Profile = () => {
         </div>
       </div>
 
+      {/* Profile Edit Dialog */}
+      <Dialog open={isProfileDialogOpen} onOpenChange={setIsProfileDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]" dir="rtl">
+          <DialogHeader>
+            <DialogTitle className="text-right">ویرایش پروفایل</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <label className="block text-right">نام</label>
+              <Input
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                className="text-right"
+                dir="rtl"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-right">نام خانوادگی</label>
+              <Input
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                className="text-right"
+                dir="rtl"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-right">تاریخ تولد</label>
+              <Input
+                type="text"
+                value={birthDate}
+                onChange={(e) => setBirthDate(e.target.value)}
+                className="text-right"
+                dir="rtl"
+              />
+            </div>
+            <div className="space-y-2">
+              <label className="block text-right">درباره من</label>
+              <Textarea
+                value={aboutMe}
+                onChange={(e) => setAboutMe(e.target.value)}
+                className="text-right"
+                dir="rtl"
+              />
+            </div>
+            <Button
+              onClick={handleSaveProfile}
+              className="w-full mt-4"
+            >
+              ذخیره تغییرات
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Password Change Dialog */}
       <Dialog open={isPasswordDialogOpen} onOpenChange={setIsPasswordDialogOpen}>
         <DialogContent className="sm:max-w-[425px]" dir="rtl">
           <DialogHeader>
