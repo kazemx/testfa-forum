@@ -1,4 +1,3 @@
-
 import { UserCircle } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -23,7 +22,10 @@ import {
 
 const Profile = () => {
   const navigate = useNavigate();
-  const [aboutMe, setAboutMe] = useState("من یک کاربر فعال در انجمن هستم.");
+  const [aboutMe, setAboutMe] = useState(`من یک کاربر فعال در انجمن هستم.
+من همیشه سعی میکنم به سوالات دیگران پاسخ دهم.
+علاقه‌مند به برنامه‌نویسی و یادگیری تکنولوژی‌های جدید هستم.
+همیشه آماده کمک به دیگران در مسیر یادگیری هستم.`);
   const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   
@@ -81,12 +83,10 @@ const Profile = () => {
   };
 
   const handleSaveProfile = () => {
-    // Here you would typically make an API call to save the profile
     setIsProfileDialogOpen(false);
   };
 
   const handleChangePassword = () => {
-    // Here you would typically make an API call to change the password
     if (newPassword !== confirmPassword) {
       alert("رمز عبور و تکرار آن مطابقت ندارند");
       return;
@@ -108,9 +108,9 @@ const Profile = () => {
               </div>
               <div className="text-right">
                 <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
-                <p className="text-gray-600 max-w-xl whitespace-pre-wrap break-words">
+                <div className="text-gray-600 max-w-xl whitespace-pre-line break-words leading-relaxed">
                   {aboutMe}
-                </p>
+                </div>
               </div>
             </div>
             <Button variant="outline" onClick={() => setIsProfileDialogOpen(true)}>
