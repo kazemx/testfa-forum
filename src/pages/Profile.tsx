@@ -99,19 +99,20 @@ const Profile = () => {
               <TabsContent value="about" className="mt-6">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold">درباره‌ی من</h3>
                     <Button 
                       variant="outline"
                       onClick={() => setIsEditing(!isEditing)}
                     >
                       {isEditing ? "ذخیره" : "ویرایش"}
                     </Button>
+                    <h3 className="text-lg font-semibold">درباره‌ی من</h3>
                   </div>
                   {isEditing ? (
                     <Textarea
                       value={aboutMe}
                       onChange={(e) => setAboutMe(e.target.value)}
                       className="min-h-[150px] text-right"
+                      dir="rtl"
                     />
                   ) : (
                     <p className="text-gray-600 text-right">{aboutMe}</p>
@@ -168,10 +169,10 @@ const Profile = () => {
               <TabsContent value="support" className="mt-6">
                 <div className="space-y-4">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
                     <Button onClick={() => handleNavigate('/new-ticket')}>
                       ثبت تیکت جدید
                     </Button>
+                    <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
                   </div>
                   <Table>
                     <TableHeader>
