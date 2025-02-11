@@ -12,6 +12,7 @@ import { Topic, LeaderboardData } from "@/types/topic";
 import LatestPosts from "@/components/LatestPosts";
 import LatestTopics from "@/components/LatestTopics";
 import { Badge } from "@/components/ui/badge";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const topics: Topic[] = [
   {
@@ -97,6 +98,7 @@ const TopicDetail = () => {
   const [response, setResponse] = useState("");
   const [reportReason, setReportReason] = useState("");
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const isMobile = useIsMobile();
   
   const topic = topics.find(t => t.id === Number(id));
 
@@ -173,12 +175,14 @@ const TopicDetail = () => {
         </Button>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-          <div className="lg:col-span-3 lg:order-1">
-            <div className="space-y-6 sticky top-8">
-              <Leaderboard data={leaderboardData} />
-              <LatestPosts />
+          {!isMobile && (
+            <div className="lg:col-span-3 lg:order-1">
+              <div className="space-y-6 sticky top-8">
+                <Leaderboard data={leaderboardData} />
+                <LatestPosts />
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="lg:col-span-6 lg:order-2">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
@@ -290,7 +294,7 @@ const TopicDetail = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
               <div className="flex items-center gap-2 mb-6">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
@@ -307,7 +311,7 @@ const TopicDetail = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
               <div className="flex items-center gap-2 mb-4">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
@@ -330,14 +334,25 @@ const TopicDetail = () => {
             </div>
           </div>
 
-          <div className="lg:col-span-3 lg:order-3">
-            <div className="sticky top-8">
+          {isMobile ? (
+            <div className="lg:col-span-12 space-y-6">
+              <Leaderboard data={leaderboardData} />
               <LatestTopics 
                 category={topic?.category || ""}
                 topics={relatedTopics}
               />
+              <LatestPosts />
             </div>
-          </div>
+          ) : (
+            <div className="lg:col-span-3 lg:order-3">
+              <div className="sticky top-8">
+                <LatestTopics 
+                  category={topic?.category || ""}
+                  topics={relatedTopics}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
