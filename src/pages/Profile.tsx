@@ -33,12 +33,13 @@ const Profile = () => {
   const [isProfileDialogOpen, setIsProfileDialogOpen] = useState(false);
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const [activeTab, setActiveTab] = useState("about");
+
   // Profile form state
   const [firstName, setFirstName] = useState("کاظم");
   const [lastName, setLastName] = useState("مرتضوی");
   const [birthDate, setBirthDate] = useState("1995/07/07");
-  
+
   // Password change form state
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
@@ -209,6 +210,13 @@ const Profile = () => {
         <TabsTrigger
           key={index}
           value={["about", "replies", "topics", "support", "settings"][index]}
+          onClick={() => {
+            const newTab = ["about", "replies", "topics", "support", "settings"][index];
+            setActiveTab(newTab);
+            if (isMobile) {
+              setIsMenuOpen(false);
+            }
+          }}
           className="w-full text-right px-4 py-2"
         >
           <span>{stat.label}</span>
@@ -219,7 +227,16 @@ const Profile = () => {
           )}
         </TabsTrigger>
       ))}
-      <TabsTrigger value="settings" className="w-full text-right px-4 py-2">
+      <TabsTrigger 
+        value="settings" 
+        onClick={() => {
+          setActiveTab("settings");
+          if (isMobile) {
+            setIsMenuOpen(false);
+          }
+        }}
+        className="w-full text-right px-4 py-2"
+      >
         ویرایش و تنظیمات
       </TabsTrigger>
     </TabsList>
@@ -267,9 +284,8 @@ const Profile = () => {
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[240px] sm:w-[340px]">
                           <div className="py-4">
-                            <Tabs defaultValue="about" className="w-full">
+                            <Tabs value={activeTab} className="w-full">
                               <TabsNavigation />
-                              <TabContent />
                             </Tabs>
                           </div>
                         </SheetContent>
@@ -292,9 +308,13 @@ const Profile = () => {
           </div>
           
           <div className="space-y-6">
-            {!isMobile && (
-              <Tabs defaultValue="about" className="w-full flex flex-row-reverse gap-6">
+            {!isMobile ? (
+              <Tabs value={activeTab} className="w-full flex flex-row-reverse gap-6">
                 <TabsNavigation />
+                <TabContent />
+              </Tabs>
+            ) : (
+              <Tabs value={activeTab} className="w-full">
                 <TabContent />
               </Tabs>
             )}
