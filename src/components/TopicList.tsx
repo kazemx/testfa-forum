@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { Book, FlaskConical, ChartLine, Signal, Shield, Microscope, Earth, Users, BookOpen, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import {
@@ -58,7 +58,8 @@ const topics: Topic[] = [
     date: "2024-03-20",
     likes: 245,
     replies: 89,
-    category: "ریاضیات"
+    category: "ریاضیات",
+    tags: ["آموزش", "ریاضی"]
   },
   {
     id: 2,
@@ -67,7 +68,8 @@ const topics: Topic[] = [
     date: "2024-03-19", 
     likes: 189,
     replies: 156,
-    category: "زیست شناسی"
+    category: "زیست شناسی",
+    tags: ["آموزش"]
   },
   {
     id: 3,
@@ -76,7 +78,8 @@ const topics: Topic[] = [
     date: "2024-03-18",
     likes: 312,
     replies: 67,
-    category: "شیمی"
+    category: "شیمی",
+    tags: ["آموزش"]
   },
   {
     id: 4,
@@ -85,7 +88,8 @@ const topics: Topic[] = [
     date: "2024-03-17",
     likes: 178,
     replies: 45,
-    category: "فیزیک"
+    category: "فیزیک",
+    tags: ["آموزش"]
   },
   {
     id: 5,
@@ -94,7 +98,8 @@ const topics: Topic[] = [
     date: "2024-03-16",
     likes: 156,
     replies: 34,
-    category: "علوم و فنون"
+    category: "علوم و فنون",
+    tags: ["آموزش"]
   },
   {
     id: 6,
@@ -103,7 +108,8 @@ const topics: Topic[] = [
     date: "2024-03-15",
     likes: 234,
     replies: 78,
-    category: "زمین شناسی"
+    category: "زمین شناسی",
+    tags: ["آموزش"]
   },
   {
     id: 7,
@@ -112,160 +118,88 @@ const topics: Topic[] = [
     date: "2024-03-14",
     likes: 167,
     replies: 43,
-    category: "جامعه شناسی"
+    category: "جامعه شناسی",
+    tags: ["برنامه نویسی"]
   },
   {
     id: 8,
-    title: "فلسفه اسلامی",
+    title: "مشتق و کاربردهای آن",
     author: "علی رضایی",
     date: "2024-03-13",
     likes: 198,
     replies: 56,
-    category: "فلسفه"
+    category: "ریاضیات",
+    tags: ["ریاضی"]
   },
   {
     id: 9,
-    title: "منطق ریاضی",
+    title: "انتگرال و محاسبات پیشرفته",
     author: "نیما کریمی",
     date: "2024-03-12",
     likes: 221,
     replies: 67,
-    category: "منطق"
+    category: "ریاضیات",
+    tags: ["ریاضی"]
   },
   {
     id: 10,
-    title: "تاریخ ایران باستان",
+    title: "ماتریس‌ها و دترمینان",
     author: "مینا حسینی",
     date: "2024-03-11",
     likes: 278,
     replies: 89,
-    category: "تاریخ"
+    category: "ریاضیات",
+    tags: ["ریاضی"]
   },
   {
     id: 11,
-    title: "جغرافیای طبیعی",
+    title: "احتمال و آمار",
     author: "کامران علوی",
     date: "2024-03-10",
     likes: 189,
     replies: 45,
-    category: "جغرافیا"
+    category: "ریاضیات",
+    tags: ["ریاضی"]
   },
   {
     id: 12,
-    title: "اقتصاد خرد و کلان",
+    title: "آموزش پایتون مقدماتی",
     author: "زهرا تقوی",
     date: "2024-03-09",
     likes: 234,
     replies: 78,
-    category: "اقتصاد"
+    category: "برنامه نویسی",
+    tags: ["برنامه نویسی"]
   },
   {
     id: 13,
-    title: "قواعد اللغة العربية",
+    title: "جاوااسکریپت پیشرفته",
     author: "محمد عبدالله",
     date: "2024-03-08",
     likes: 167,
     replies: 45,
-    category: "عربی"
+    category: "برنامه نویسی",
+    tags: ["برنامه نویسی"]
   },
   {
     id: 14,
-    title: "الأدب العربي المعاصر",
-    author: "فاطمة الزهراء",
+    title: "آموزش React و TypeScript",
+    author: "فاطمه الزهراء",
     date: "2024-03-07",
     likes: 198,
     replies: 67,
-    category: "عربی"
+    category: "برنامه نویسی",
+    tags: ["برنامه نویسی"]
   },
   {
     id: 15,
-    title: "النحو والصرف",
+    title: "طراحی الگوریتم",
     author: "احمد حسین",
     date: "2024-03-06",
     likes: 145,
     replies: 34,
-    category: "عربی"
-  },
-  {
-    id: 16,
-    title: "البلاغة العربية",
-    author: "زینب محمود",
-    date: "2024-03-05",
-    likes: 178,
-    replies: 56,
-    category: "عربی"
-  },
-  {
-    id: 17,
-    title: "اصول اقتصاد کلان",
-    author: "علی رضایی",
-    date: "2024-03-04",
-    likes: 234,
-    replies: 78,
-    category: "اقتصاد"
-  },
-  {
-    id: 18,
-    title: "بازارهای مالی",
-    author: "سارا کریمی",
-    date: "2024-03-03",
-    likes: 156,
-    replies: 43,
-    category: "اقتصاد"
-  },
-  {
-    id: 19,
-    title: "اقتصاد بین‌الملل",
-    author: "حسین محمدی",
-    date: "2024-03-02",
-    likes: 189,
-    replies: 55,
-    category: "اقتصاد"
-  },
-  {
-    id: 20,
-    title: "سیاست‌های پولی و مالی",
-    author: "مریم عباسی",
-    date: "2024-03-01",
-    likes: 212,
-    replies: 67,
-    category: "اقتصاد"
-  },
-  {
-    id: 21,
-    title: "تاریخ اسلام",
-    author: "محمد حسینی",
-    date: "2024-02-29",
-    likes: 245,
-    replies: 89,
-    category: "تاریخ"
-  },
-  {
-    id: 22,
-    title: "تمدن هخامنشی",
-    author: "رضا کاظمی",
-    date: "2024-02-28",
-    likes: 178,
-    replies: 45,
-    category: "تاریخ"
-  },
-  {
-    id: 23,
-    title: "تاریخ معاصر ایران",
-    author: "زهرا نوری",
-    date: "2024-02-27",
-    likes: 223,
-    replies: 76,
-    category: "تاریخ"
-  },
-  {
-    id: 24,
-    title: "انقلاب اسلامی",
-    author: "امیر تقوی",
-    date: "2024-02-26",
-    likes: 267,
-    replies: 92,
-    category: "تاریخ"
+    category: "برنامه نویسی",
+    tags: ["برنامه نویسی"]
   }
 ];
 
