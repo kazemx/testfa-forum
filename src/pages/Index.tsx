@@ -19,27 +19,73 @@ import {
 const popularTopics = [
   {
     id: 1,
-    title: "راهنمای جامع ری‌اکت",
-    views: 12500,
-    author: "علی حسینی"
+    title: "مبانی ریاضیات گسسته",
+    views: 15200,
+    author: "دکتر علی محمدی",
+    category: "ریاضی"
   },
   {
     id: 2,
-    title: "آموزش تیلویند از صفر تا صد",
-    views: 9800,
-    author: "مریم کریمی"
+    title: "فلسفه علم و معرفت‌شناسی",
+    views: 14300,
+    author: "دکتر حسین کریمی",
+    category: "فلسفه"
   },
   {
     id: 3,
-    title: "برنامه‌نویسی فول‌استک",
-    views: 8900,
-    author: "محمد رضایی"
+    title: "اصول اقتصاد خرد",
+    views: 13800,
+    author: "دکتر مریم رضایی",
+    category: "اقتصاد"
   },
   {
     id: 4,
-    title: "امنیت در وب",
-    views: 7600,
-    author: "سارا محمدی"
+    title: "قواعد صرف و نحو عربی",
+    views: 12900,
+    author: "استاد احمد عباسی",
+    category: "عربی"
+  },
+  {
+    id: 5,
+    title: "نظریه اعداد در ریاضیات",
+    views: 12500,
+    author: "دکتر رضا صادقی",
+    category: "ریاضی"
+  },
+  {
+    id: 6,
+    title: "فلسفه هنر و زیبایی‌شناسی",
+    views: 11800,
+    author: "دکتر زهرا حسینی",
+    category: "فلسفه"
+  },
+  {
+    id: 7,
+    title: "بازارهای مالی و سرمایه‌گذاری",
+    views: 11200,
+    author: "دکتر امیر محمودی",
+    category: "اقتصاد"
+  },
+  {
+    id: 8,
+    title: "بلاغت در زبان عربی",
+    views: 10900,
+    author: "استاد محمد کاظمی",
+    category: "عربی"
+  },
+  {
+    id: 9,
+    title: "آنالیز ریاضی پیشرفته",
+    views: 10500,
+    author: "دکتر سارا نوری",
+    category: "ریاضی"
+  },
+  {
+    id: 10,
+    title: "فلسفه ذهن و روان",
+    views: 10100,
+    author: "دکتر علیرضا محسنی",
+    category: "فلسفه"
   }
 ];
 
@@ -127,6 +173,9 @@ const Index = () => {
                         <div className="flex flex-col gap-2">
                           <p className="text-sm text-gray-600">
                             نویسنده: {topic.author}
+                          </p>
+                          <p className="text-sm text-gray-600">
+                            دسته‌بندی: {topic.category}
                           </p>
                           <div className="flex justify-between items-center mt-4">
                             <div className="flex items-center gap-2 text-gray-600">
