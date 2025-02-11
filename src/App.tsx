@@ -10,6 +10,8 @@ import NotFound from "./pages/NotFound";
 import TopicDetail from "./pages/TopicDetail";
 import Profile from "./pages/Profile";
 import TagTopics from "./pages/TagTopics";
+import NewTicket from "./pages/NewTicket";
+import TicketDetail from "./pages/TicketDetail";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +27,8 @@ const App = () => (
           <Route path="/topics/:id" element={<TopicDetail />} />
           <Route path="/tags" element={<TagTopics />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/new-ticket" element={<NewTicket />} />
+          <Route path="/ticket/:id" element={<TicketDetail />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
