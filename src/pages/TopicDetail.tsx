@@ -1,3 +1,4 @@
+
 import { AlertTriangle, ArrowRight, MessageSquare, Send, Tag } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -108,7 +109,7 @@ const TopicDetail = () => {
         <div className="max-w-4xl mx-auto px-4 py-8" dir="rtl">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-900 mb-4">متاسفانه موضوع مورد نظر یافت نشد</h1>
-            <Button onClick={() => navigate('/')}>بازگشت به صه اصلی</Button>
+            <Button onClick={() => navigate('/')}>بازگشت به صفحه اصلی</Button>
           </div>
         </div>
       </div>
@@ -164,7 +165,7 @@ const TopicDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-8" dir="rtl">
+      <div className={`mx-auto px-4 py-8 ${isMobile ? 'max-w-full' : 'max-w-7xl'}`} dir="rtl">
         <Button
           variant="ghost"
           className="mb-6 flex items-center gap-2 hover:bg-gray-100"
@@ -184,14 +185,14 @@ const TopicDetail = () => {
             </div>
           )}
 
-          <div className="lg:col-span-6 lg:order-2">
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <h1 className="text-2xl font-bold text-gray-900">{topic?.title}</h1>
-                <div className="flex items-center gap-2">
+          <div className={`${isMobile ? 'col-span-1' : 'lg:col-span-6'} lg:order-2`}>
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-4">
+                <h1 className="text-xl sm:text-2xl font-bold text-gray-900">{topic?.title}</h1>
+                <div className="flex flex-wrap items-center gap-2">
                   <Button 
                     variant="ghost" 
-                    size="sm"
+                    size={isMobile ? "sm" : "default"}
                     onClick={handleQuickReply}
                     className="text-[#9b87f5] hover:text-[#7E69AB] hover:bg-purple-50"
                   >
@@ -201,14 +202,14 @@ const TopicDetail = () => {
                     <DialogTrigger asChild>
                       <Button 
                         variant="ghost" 
-                        size="sm"
+                        size={isMobile ? "sm" : "default"}
                         className="text-[#ea384c] hover:text-red-700 hover:bg-red-50"
                       >
                         <AlertTriangle className="w-4 h-4 ml-1" />
                         گزارش تخلف
                       </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-md text-right" dir="rtl">
+                    <DialogContent className={`${isMobile ? 'w-[95vw]' : 'sm:max-w-md'} text-right`} dir="rtl">
                       <DialogHeader>
                         <DialogTitle>گزارش این مطلب به عنوان یک</DialogTitle>
                       </DialogHeader>
@@ -266,7 +267,7 @@ const TopicDetail = () => {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
+              <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 mb-6">
                 <span>نویسنده: {topic?.author}</span>
                 <span>تاریخ: {new Date(topic?.date || "").toLocaleDateString('fa-IR')}</span>
                 <span>پسندیدن: {topic?.likes.toLocaleString('fa-IR')}</span>
@@ -294,7 +295,7 @@ const TopicDetail = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 mt-6">
               <div className="flex items-center gap-2 mb-6">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">پاسخ‌ها</h2>
@@ -311,7 +312,7 @@ const TopicDetail = () => {
               </div>
             </div>
 
-            <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mt-6">
+            <div className="bg-white rounded-xl p-4 sm:p-6 shadow-sm border border-gray-100 mt-6">
               <div className="flex items-center gap-2 mb-4">
                 <MessageSquare className="w-5 h-5 text-primary" />
                 <h2 className="text-lg font-semibold text-gray-900">ارسال پاسخ جدید</h2>
@@ -325,7 +326,7 @@ const TopicDetail = () => {
               />
               
               <Button 
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 w-full sm:w-auto"
                 onClick={handleSubmitResponse}
               >
                 <Send className="w-4 h-4" />
@@ -335,7 +336,7 @@ const TopicDetail = () => {
           </div>
 
           {isMobile ? (
-            <div className="lg:col-span-12 space-y-6">
+            <div className="col-span-1 space-y-6">
               <Leaderboard data={leaderboardData} />
               <LatestTopics 
                 category={topic?.category || ""}
@@ -360,3 +361,4 @@ const TopicDetail = () => {
 };
 
 export default TopicDetail;
+
