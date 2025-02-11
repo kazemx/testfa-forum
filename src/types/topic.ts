@@ -17,6 +17,7 @@ export type Topic = {
   likes: number;
   content?: string;
   replies: Reply[];
+  tags: string[];
 };
 
 export type LeaderboardUser = {
@@ -31,3 +32,4 @@ export type LeaderboardData = {
   monthly: LeaderboardUser[];
   allTime: LeaderboardUser[];
 };
+

@@ -1,4 +1,4 @@
-import { AlertTriangle, ArrowRight, MessageSquare, Send } from "lucide-react";
+import { AlertTriangle, ArrowRight, MessageSquare, Send, Tag } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -11,6 +11,7 @@ import { Leaderboard } from "@/components/Leaderboard";
 import { Topic, LeaderboardData } from "@/types/topic";
 import LatestPosts from "@/components/LatestPosts";
 import LatestTopics from "@/components/LatestTopics";
+import { Badge } from "@/components/ui/badge";
 
 const topics: Topic[] = [
   {
@@ -21,6 +22,7 @@ const topics: Topic[] = [
     category: "آموزشی",
     content: "سلام، من می‌خوام React رو یاد بگیرم و نمی‌دونم از کجا شروع کنم. لطفاً راهنمایی کنید.",
     likes: 24,
+    tags: ["React", "آموزش", "برنامه‌نویسی", "فرانت‌اند"],
     replies: [
       {
         id: 1,
@@ -56,6 +58,7 @@ const topics: Topic[] = [
     category: "منابع",
     content: "پروژه‌های عملی خیلی مهم هستند. سعی کنید همزمان با یادگیری، پروژه‌های کوچک انجام بدید.",
     likes: 15,
+    tags: ["جاوااسکریپت", "برنامه‌نویسی", "منابع‌آموزشی"],
     replies: [
       {
         id: 3,
@@ -180,7 +183,7 @@ const TopicDetail = () => {
           <div className="lg:col-span-6 lg:order-2">
             <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
               <div className="flex items-center gap-2 mb-4">
-                <h1 className="text-2xl font-bold text-gray-900">{topic.title}</h1>
+                <h1 className="text-2xl font-bold text-gray-900">{topic?.title}</h1>
                 <div className="flex items-center gap-2">
                   <Button 
                     variant="ghost" 
@@ -254,22 +257,36 @@ const TopicDetail = () => {
                     </DialogContent>
                   </Dialog>
                   <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                    {topic.category}
+                    {topic?.category}
                   </span>
                 </div>
               </div>
 
               <div className="flex items-center gap-4 text-sm text-gray-600 mb-6">
-                <span>نویسنده: {topic.author}</span>
-                <span>تاریخ: {new Date(topic.date).toLocaleDateString('fa-IR')}</span>
-                <span>پسندیدن: {topic.likes.toLocaleString('fa-IR')}</span>
-                <span>پاسخ‌ها: {topic.replies.length.toLocaleString('fa-IR')}</span>
+                <span>نویسنده: {topic?.author}</span>
+                <span>تاریخ: {new Date(topic?.date || "").toLocaleDateString('fa-IR')}</span>
+                <span>پسندیدن: {topic?.likes.toLocaleString('fa-IR')}</span>
+                <span>پاسخ‌ها: {topic?.replies.length.toLocaleString('fa-IR')}</span>
               </div>
 
               <div className="prose prose-gray max-w-none">
-                <p className="text-gray-700 leading-relaxed">
-                  {topic.content}
+                <p className="text-gray-700 leading-relaxed mb-4">
+                  {topic?.content}
                 </p>
+                {topic?.tags && topic.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    <Tag className="w-4 h-4 text-gray-500" />
+                    {topic.tags.map((tag, index) => (
+                      <Badge
+                        key={index}
+                        variant="secondary"
+                        className="cursor-pointer hover:bg-gray-200"
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -280,7 +297,7 @@ const TopicDetail = () => {
               </div>
               
               <div className="space-y-4">
-                {topic.replies.map((reply) => (
+                {topic?.replies.map((reply) => (
                   <Reply 
                     key={reply.id} 
                     reply={reply}
@@ -316,7 +333,7 @@ const TopicDetail = () => {
           <div className="lg:col-span-3 lg:order-3">
             <div className="sticky top-8">
               <LatestTopics 
-                category={topic.category}
+                category={topic?.category || ""}
                 topics={relatedTopics}
               />
             </div>
