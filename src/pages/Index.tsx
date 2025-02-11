@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
 import { useNavigate } from "react-router-dom";
@@ -9,11 +9,6 @@ import { Input } from "@/components/ui/input";
 import MobileCategoryFilter from "@/components/MobileCategoryFilter";
 import { useIsMobile } from "@/hooks/use-mobile";
 import LoginButton from "@/components/LoginButton";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
 
 // Popular topics data
 const popularTopics = [
@@ -46,18 +41,8 @@ const popularTopics = [
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeSlide, setActiveSlide] = useState(0);
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-
-  // Auto-slide effect
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveSlide((current) => (current + 1) % popularTopics.length);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -106,74 +91,63 @@ const Index = () => {
               searchQuery={searchQuery}
             />
 
-            {/* Popular Topics Carousel Section */}
+            {/* Popular Topics Section - Moved here */}
             <div className="mt-8">
-              <h2 className="text-2xl font-bold mb-6 text-right">پربازدیدها</h2>
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                className="w-full"
-              >
-                <CarouselContent>
-                  {popularTopics.map((topic, index) => (
-                    <CarouselItem key={topic.id} className="basis-full">
-                      <div 
-                        className={`bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100 transition-all duration-300 ${
-                          index === activeSlide ? "opacity-100 scale-100" : "opacity-0 scale-95"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3 mb-4">
-                          <BookOpen className="w-6 h-6 text-primary flex-shrink-0" />
-                          <h3 className="text-lg font-semibold text-gray-900">
-                            {topic.title}
-                          </h3>
-                        </div>
-                        <div className="flex flex-col gap-2">
-                          <p className="text-sm text-gray-600">
-                            نویسنده: {topic.author}
-                          </p>
-                          <div className="flex justify-between items-center mt-4">
-                            <div className="flex items-center gap-2 text-gray-600">
-                              <svg
-                                className="w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                                />
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                                />
-                              </svg>
-                              <span className="text-sm font-medium">
-                                {topic.views.toLocaleString('fa-IR')}
-                              </span>
-                            </div>
-                            <Button 
-                              variant="secondary"
-                              size="sm"
-                              onClick={() => navigate(`/topics/${topic.id}`)}
-                              className="text-sm bg-primary/5 hover:bg-primary/10 text-primary transition-colors"
-                            >
-                              مشاهده
-                            </Button>
-                          </div>
-                        </div>
+              <h2 className="text-2xl font-bold mb-6 text-right">پربازدید‌ها</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {popularTopics.map((topic) => (
+                  <div 
+                    key={topic.id} 
+                    className="bg-white/50 backdrop-blur-sm rounded-lg p-4 shadow-md hover:shadow-lg transition-all duration-300 flex flex-col justify-between h-40 border border-gray-100"
+                  >
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <BookOpen className="w-4 h-4 text-primary" />
+                        <h3 className="text-sm font-semibold text-gray-900 line-clamp-2">
+                          {topic.title}
+                        </h3>
                       </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
+                      <p className="text-xs text-gray-600 mb-2">
+                        نویسنده: {topic.author}
+                      </p>
+                    </div>
+                    <div className="flex justify-between items-center mt-auto">
+                      <div className="flex items-center gap-1 text-gray-600">
+                        <svg
+                          className="w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                          />
+                        </svg>
+                        <span className="text-xs font-medium">
+                          {topic.views.toLocaleString('fa-IR')}
+                        </span>
+                      </div>
+                      <Button 
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => navigate(`/topics/${topic.id}`)}
+                        className="text-xs bg-primary/5 hover:bg-primary/10 text-primary transition-colors"
+                      >
+                        مشاهده
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           {!isMobile && (
@@ -196,3 +170,4 @@ const Index = () => {
 };
 
 export default Index;
+
