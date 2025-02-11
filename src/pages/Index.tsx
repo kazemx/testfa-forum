@@ -46,6 +46,7 @@ const popularTags = [
   { id: 5, name: "فیزیک", count: 2 },
   { id: 6, name: "شیمی", count: 2 }
 ];
+import Footer from "@/components/Footer";
 
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
@@ -201,6 +202,7 @@ const Index = () => {
         selectedCategory={selectedCategory}
         onSelectCategory={setSelectedCategory}
       />
+      <Footer />
     </div>
   );
 };
