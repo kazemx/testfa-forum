@@ -1,5 +1,6 @@
+
 import { UserCircle, ArrowLeft, LogOut, Menu } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
