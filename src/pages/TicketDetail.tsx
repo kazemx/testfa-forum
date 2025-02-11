@@ -67,7 +67,7 @@ const TicketDetail = () => {
               <Button
                 variant="ghost"
                 onClick={() => navigate("/profile")}
-                className="ml-2 sm:ml-4"
+                className="ml-2 sm:ml-4 hover:text-[#9293f9] hover:bg-[#9293f9]/10"
                 size={isMobile ? "sm" : "default"}
               >
                 <ArrowRight className="h-4 w-4 ml-1 sm:ml-2" />
@@ -79,7 +79,7 @@ const TicketDetail = () => {
             </div>
             <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm mr-2 sm:mr-0">
               <span className="text-muted-foreground whitespace-nowrap">وضعیت:</span>
-              <span className="font-medium text-primary whitespace-nowrap">
+              <span className="font-medium text-[#9293f9] whitespace-nowrap">
                 {ticket.status}
               </span>
             </div>
@@ -91,8 +91,8 @@ const TicketDetail = () => {
                 key={message.id}
                 className={`flex flex-col p-3 sm:p-4 rounded-lg ${
                   message.sender === "user"
-                    ? "bg-primary/10 ml-4 sm:ml-12"
-                    : "bg-muted mr-4 sm:mr-12"
+                    ? "bg-[#9293f9]/10 ml-4 sm:ml-12"
+                    : "bg-[#f0ed1a]/10 mr-4 sm:mr-12"
                 }`}
               >
                 <div className="flex justify-between items-center mb-2">
@@ -115,13 +115,13 @@ const TicketDetail = () => {
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="پیام خود را بنویسید..."
-              className="h-24 sm:h-32 text-sm sm:text-base"
+              className="h-24 sm:h-32 text-sm sm:text-base focus-visible:ring-[#9293f9]"
               required
             />
             <div className="flex justify-end">
               <Button 
                 type="submit" 
-                className="flex items-center gap-1 sm:gap-2"
+                className="flex items-center gap-1 sm:gap-2 bg-[#9293f9] hover:bg-[#9293f9]/90"
                 size={isMobile ? "sm" : "default"}
               >
                 <Send className="h-3 w-3 sm:h-4 sm:w-4" />
