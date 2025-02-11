@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useNavigate, useParams } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface Message {
   id: number;
@@ -17,6 +18,7 @@ const TicketDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { toast } = useToast();
+  const isMobile = useIsMobile();
   const [newMessage, setNewMessage] = useState("");
   
   // این داده‌ها باید از سرور دریافت شوند
@@ -58,61 +60,74 @@ const TicketDetail = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-3xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-sm p-6" dir="rtl">
-          <div className="mb-6 flex items-center justify-between">
+      <div className="max-w-3xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
+        <div className="bg-white rounded-lg shadow-sm p-3 sm:p-6" dir="rtl">
+          <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div className="flex items-center">
               <Button
                 variant="ghost"
                 onClick={() => navigate("/profile")}
-                className="ml-4"
+                className="ml-2 sm:ml-4"
+                size={isMobile ? "sm" : "default"}
               >
-                <ArrowRight className="h-4 w-4 ml-2" />
+                <ArrowRight className="h-4 w-4 ml-1 sm:ml-2" />
                 بازگشت
               </Button>
-              <h1 className="text-2xl font-bold">{ticket.title}</h1>
+              <h1 className="text-lg sm:text-2xl font-bold line-clamp-1">
+                {ticket.title}
+              </h1>
             </div>
-            <div className="flex items-center gap-4 text-sm">
-              <span className="text-muted-foreground">وضعیت:</span>
-              <span className="font-medium text-primary">{ticket.status}</span>
+            <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm mr-2 sm:mr-0">
+              <span className="text-muted-foreground whitespace-nowrap">وضعیت:</span>
+              <span className="font-medium text-primary whitespace-nowrap">
+                {ticket.status}
+              </span>
             </div>
           </div>
 
-          <div className="space-y-6 mb-8">
+          <div className="space-y-4 sm:space-y-6 mb-4 sm:mb-8">
             {ticket.messages.map((message) => (
               <div
                 key={message.id}
-                className={`flex flex-col p-4 rounded-lg ${
+                className={`flex flex-col p-3 sm:p-4 rounded-lg ${
                   message.sender === "user"
-                    ? "bg-primary/10 ml-12"
-                    : "bg-muted mr-12"
+                    ? "bg-primary/10 ml-4 sm:ml-12"
+                    : "bg-muted mr-4 sm:mr-12"
                 }`}
               >
                 <div className="flex justify-between items-center mb-2">
-                  <span className="font-medium">
+                  <span className="font-medium text-sm sm:text-base">
                     {message.sender === "user" ? "شما" : "پشتیبانی"}
                   </span>
-                  <span className="text-sm text-muted-foreground">
+                  <span className="text-xs sm:text-sm text-muted-foreground">
                     {message.date}
                   </span>
                 </div>
-                <p className="text-sm whitespace-pre-line">{message.content}</p>
+                <p className="text-xs sm:text-sm whitespace-pre-line break-words">
+                  {message.content}
+                </p>
               </div>
             ))}
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             <Textarea
               value={newMessage}
               onChange={(e) => setNewMessage(e.target.value)}
               placeholder="پیام خود را بنویسید..."
-              className="h-32"
+              className="h-24 sm:h-32 text-sm sm:text-base"
               required
             />
-            <Button type="submit" className="flex items-center gap-2">
-              <Send className="h-4 w-4" />
-              ارسال پیام
-            </Button>
+            <div className="flex justify-end">
+              <Button 
+                type="submit" 
+                className="flex items-center gap-1 sm:gap-2"
+                size={isMobile ? "sm" : "default"}
+              >
+                <Send className="h-3 w-3 sm:h-4 sm:w-4" />
+                ارسال پیام
+              </Button>
+            </div>
           </form>
         </div>
       </div>
