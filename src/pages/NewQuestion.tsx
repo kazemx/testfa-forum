@@ -63,7 +63,7 @@ const NewQuestion = () => {
             <Button
               variant="outline"
               onClick={() => navigate("/")}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 hover:bg-[#f0ed1a]/10 hover:text-gray-800 hover:border-[#f0ed1a]"
             >
               <Home className="h-4 w-4" />
               بازگشت به خانه
@@ -79,7 +79,7 @@ const NewQuestion = () => {
                 placeholder="عنوان را وارد کنید"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                className="w-full text-right"
+                className="w-full text-right focus-visible:ring-[#f0ed1a]"
                 required
               />
             </div>
@@ -89,7 +89,7 @@ const NewQuestion = () => {
                 دسته بندی گفتگو
               </label>
               <Select value={category} onValueChange={setCategory} required>
-                <SelectTrigger className="w-full text-right">
+                <SelectTrigger className="w-full text-right focus:ring-[#f0ed1a]">
                   <SelectValue placeholder="دسته بندی مورد نظر را انتخاب کنید..." />
                 </SelectTrigger>
                 <SelectContent className="max-h-[300px]">
@@ -113,7 +113,7 @@ const NewQuestion = () => {
                 placeholder="متن مورد نظر خود را وارد کنید..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                className="min-h-[200px] text-right"
+                className="min-h-[200px] text-right focus-visible:ring-[#f0ed1a]"
                 required
               />
             </div>
@@ -130,7 +130,7 @@ const NewQuestion = () => {
                     value={currentTag}
                     onChange={(e) => setCurrentTag(e.target.value)}
                     onKeyDown={handleAddTag}
-                    className="text-right"
+                    className="text-right focus-visible:ring-[#f0ed1a]"
                     disabled={tags.length >= 5}
                   />
                 </div>
@@ -139,13 +139,13 @@ const NewQuestion = () => {
                     {tags.map((tag, index) => (
                       <div
                         key={index}
-                        className="bg-purple-100 text-purple-800 px-3 py-1 rounded-full flex items-center gap-2"
+                        className="bg-[#f0ed1a]/20 text-gray-800 px-3 py-1 rounded-full flex items-center gap-2"
                       >
                         <span>{tag}</span>
                         <button
                           type="button"
                           onClick={() => removeTag(tag)}
-                          className="text-purple-600 hover:text-purple-800"
+                          className="text-gray-600 hover:text-gray-800"
                         >
                           ×
                         </button>
@@ -158,7 +158,7 @@ const NewQuestion = () => {
 
             <Button 
               type="submit"
-              className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3"
+              className="w-full bg-[#f0ed1a] hover:bg-[#f0ed1a]/90 text-gray-800 py-3"
             >
               ثبت پرسش
             </Button>
@@ -170,4 +170,3 @@ const NewQuestion = () => {
 };
 
 export default NewQuestion;
-
