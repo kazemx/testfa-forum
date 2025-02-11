@@ -19,73 +19,27 @@ import {
 const popularTopics = [
   {
     id: 1,
-    title: "مبانی ریاضیات گسسته",
-    views: 15200,
-    author: "دکتر علی محمدی",
-    category: "ریاضی"
+    title: "راهنمای جامع ری‌اکت",
+    views: 12500,
+    author: "علی حسینی"
   },
   {
     id: 2,
-    title: "فلسفه علم و معرفت‌شناسی",
-    views: 14300,
-    author: "دکتر حسین کریمی",
-    category: "فلسفه"
+    title: "آموزش تیلویند از صفر تا صد",
+    views: 9800,
+    author: "مریم کریمی"
   },
   {
     id: 3,
-    title: "اصول اقتصاد خرد",
-    views: 13800,
-    author: "دکتر مریم رضایی",
-    category: "اقتصاد"
+    title: "برنامه‌نویسی فول‌استک",
+    views: 8900,
+    author: "محمد رضایی"
   },
   {
     id: 4,
-    title: "قواعد صرف و نحو عربی",
-    views: 12900,
-    author: "استاد احمد عباسی",
-    category: "عربی"
-  },
-  {
-    id: 5,
-    title: "نظریه اعداد در ریاضیات",
-    views: 12500,
-    author: "دکتر رضا صادقی",
-    category: "ریاضی"
-  },
-  {
-    id: 6,
-    title: "فلسفه هنر و زیبایی‌شناسی",
-    views: 11800,
-    author: "دکتر زهرا حسینی",
-    category: "فلسفه"
-  },
-  {
-    id: 7,
-    title: "بازارهای مالی و سرمایه‌گذاری",
-    views: 11200,
-    author: "دکتر امیر محمودی",
-    category: "اقتصاد"
-  },
-  {
-    id: 8,
-    title: "بلاغت در زبان عربی",
-    views: 10900,
-    author: "استاد محمد کاظمی",
-    category: "عربی"
-  },
-  {
-    id: 9,
-    title: "آنالیز ریاضی پیشرفته",
-    views: 10500,
-    author: "دکتر سارا نوری",
-    category: "ریاضی"
-  },
-  {
-    id: 10,
-    title: "فلسفه ذهن و روان",
-    views: 10100,
-    author: "دکتر علیرضا محسنی",
-    category: "فلسفه"
+    title: "امنیت در وب",
+    views: 7600,
+    author: "سارا محمدی"
   }
 ];
 
@@ -155,13 +109,19 @@ const Index = () => {
             {/* Popular Topics Carousel Section */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-6 text-right">پربازدیدها</h2>
-              <Carousel className="w-full overflow-hidden">
+              <Carousel
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+                className="w-full"
+              >
                 <CarouselContent>
                   {popularTopics.map((topic, index) => (
                     <CarouselItem key={topic.id} className="basis-full">
                       <div 
-                        className={`bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100 transition-all duration-500 ${
-                          index === activeSlide ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full absolute"
+                        className={`bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100 transition-all duration-300 ${
+                          index === activeSlide ? "opacity-100 scale-100" : "opacity-0 scale-95"
                         }`}
                       >
                         <div className="flex items-center gap-3 mb-4">
@@ -173,9 +133,6 @@ const Index = () => {
                         <div className="flex flex-col gap-2">
                           <p className="text-sm text-gray-600">
                             نویسنده: {topic.author}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            دسته‌بندی: {topic.category}
                           </p>
                           <div className="flex justify-between items-center mt-4">
                             <div className="flex items-center gap-2 text-gray-600">
