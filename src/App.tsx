@@ -9,6 +9,7 @@ import NewQuestion from "./pages/NewQuestion";
 import NotFound from "./pages/NotFound";
 import TopicDetail from "./pages/TopicDetail";
 import Profile from "./pages/Profile";
+import TagTopics from "./pages/TagTopics";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/new-question" element={<NewQuestion />} />
           <Route path="/topics/:id" element={<TopicDetail />} />
+          <Route path="/tags" element={<TagTopics />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
