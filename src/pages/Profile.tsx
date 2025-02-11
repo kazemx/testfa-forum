@@ -1,4 +1,3 @@
-
 import { UserCircle, ArrowLeft, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -107,6 +106,103 @@ const Profile = () => {
     setConfirmPassword("");
   };
 
+  const TabContent = () => (
+    <div className="flex-1">
+      <TabsContent value="about" className="mt-6">
+        <div className="text-right space-y-4">
+          <p><strong>نام:</strong> {firstName}</p>
+          <p><strong>نام خانوادگی:</strong> {lastName}</p>
+          <p><strong>تاریخ تولد:</strong> {birthDate}</p>
+          <Button
+            variant="outline"
+            onClick={() => setIsPasswordDialogOpen(true)}
+          >
+            تغییر گذرواژه
+          </Button>
+        </div>
+      </TabsContent>
+
+      <TabsContent value="replies" className="mt-6">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-right">عنوان</TableHead>
+              <TableHead className="text-right">تاریخ</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {myReplies.map((reply) => (
+              <TableRow 
+                key={reply.id}
+                className="cursor-pointer"
+                onClick={() => handleNavigate(`/topic/${reply.id}`)}
+              >
+                <TableCell className="text-right">{reply.title}</TableCell>
+                <TableCell className="text-right">{reply.date}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TabsContent>
+
+      <TabsContent value="topics" className="mt-6">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead className="text-right">عنوان</TableHead>
+              <TableHead className="text-right">تاریخ</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {myTopics.map((topic) => (
+              <TableRow 
+                key={topic.id}
+                className="cursor-pointer"
+                onClick={() => handleNavigate(`/topic/${topic.id}`)}
+              >
+                <TableCell className="text-right">{topic.title}</TableCell>
+                <TableCell className="text-right">{topic.date}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TabsContent>
+
+      <TabsContent value="support" className="mt-6">
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <Button onClick={() => handleNavigate('/new-ticket')}>
+              ثبت تیکت جدید
+            </Button>
+            <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
+          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-right">عنوان</TableHead>
+                <TableHead className="text-right">وضعیت</TableHead>
+                <TableHead className="text-right">تاریخ</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {myTickets.map((ticket) => (
+                <TableRow 
+                  key={ticket.id}
+                  className="cursor-pointer"
+                  onClick={() => handleNavigate(`/ticket/${ticket.id}`)}
+                >
+                  <TableCell className="text-right">{ticket.title}</TableCell>
+                  <TableCell className="text-right">{ticket.status}</TableCell>
+                  <TableCell className="text-right">{ticket.date}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      </TabsContent>
+    </div>
+  );
+
   const TabsNavigation = () => (
     <TabsList className="flex flex-col h-auto w-48 space-y-2 bg-muted/50 p-2">
       {stats.map((stat, index) => (
@@ -147,7 +243,7 @@ const Profile = () => {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            بازگشت به صفحه اصلی
+            بازگشت به صه اصلی
           </Button>
         </div>
 
@@ -171,8 +267,9 @@ const Profile = () => {
                         </SheetTrigger>
                         <SheetContent side="right" className="w-[240px] sm:w-[340px]">
                           <div className="py-4">
-                            <Tabs defaultValue="about" className="w-full" orientation="vertical">
+                            <Tabs defaultValue="about" className="w-full">
                               <TabsNavigation />
+                              <TabContent />
                             </Tabs>
                           </div>
                         </SheetContent>
@@ -198,100 +295,7 @@ const Profile = () => {
             {!isMobile && (
               <Tabs defaultValue="about" className="w-full flex flex-row-reverse gap-6">
                 <TabsNavigation />
-                <div className="flex-1">
-                  <TabsContent value="about" className="mt-6">
-                    <div className="text-right space-y-4">
-                      <p><strong>نام:</strong> {firstName}</p>
-                      <p><strong>نام خانوادگی:</strong> {lastName}</p>
-                      <p><strong>تاریخ تولد:</strong> {birthDate}</p>
-                      <Button
-                        variant="outline"
-                        onClick={() => setIsPasswordDialogOpen(true)}
-                      >
-                        تغییر گذرواژه
-                      </Button>
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="replies" className="mt-6">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-right">عنوان</TableHead>
-                          <TableHead className="text-right">تاریخ</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {myReplies.map((reply) => (
-                          <TableRow 
-                            key={reply.id}
-                            className="cursor-pointer"
-                            onClick={() => handleNavigate(`/topic/${reply.id}`)}
-                          >
-                            <TableCell className="text-right">{reply.title}</TableCell>
-                            <TableCell className="text-right">{reply.date}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TabsContent>
-
-                  <TabsContent value="topics" className="mt-6">
-                    <Table>
-                      <TableHeader>
-                        <TableRow>
-                          <TableHead className="text-right">عنوان</TableHead>
-                          <TableHead className="text-right">تاریخ</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {myTopics.map((topic) => (
-                          <TableRow 
-                            key={topic.id}
-                            className="cursor-pointer"
-                            onClick={() => handleNavigate(`/topic/${topic.id}`)}
-                          >
-                            <TableCell className="text-right">{topic.title}</TableCell>
-                            <TableCell className="text-right">{topic.date}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </TabsContent>
-
-                  <TabsContent value="support" className="mt-6">
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center">
-                        <Button onClick={() => handleNavigate('/new-ticket')}>
-                          ثبت تیکت جدید
-                        </Button>
-                        <h3 className="text-lg font-semibold">تیکت‌های پشتیبانی</h3>
-                      </div>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead className="text-right">عنوان</TableHead>
-                            <TableHead className="text-right">وضعیت</TableHead>
-                            <TableHead className="text-right">تاریخ</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {myTickets.map((ticket) => (
-                            <TableRow 
-                              key={ticket.id}
-                              className="cursor-pointer"
-                              onClick={() => handleNavigate(`/ticket/${ticket.id}`)}
-                            >
-                              <TableCell className="text-right">{ticket.title}</TableCell>
-                              <TableCell className="text-right">{ticket.status}</TableCell>
-                              <TableCell className="text-right">{ticket.date}</TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
-                    </div>
-                  </TabsContent>
-                </div>
+                <TabContent />
               </Tabs>
             )}
           </div>
