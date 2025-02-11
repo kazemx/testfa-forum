@@ -162,36 +162,36 @@ const Index = () => {
                 ))}
               </div>
             </div>
-
-            {/* Popular Tags Section */}
-            <div className="mt-8 bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100">
-              <div className="flex items-center gap-2 mb-4">
-                <Tags className="w-5 h-5 text-primary" />
-                <h2 className="text-xl font-bold">تگ‌های پرطرفدار</h2>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {popularTags.map((tag) => (
-                  <button
-                    key={tag.id}
-                    onClick={() => handleTagClick(tag.name)}
-                    className="px-3 py-1.5 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 group"
-                  >
-                    <span>{tag.name}</span>
-                    <span className="bg-primary/10 text-primary px-1.5 py-0.5 rounded-md text-xs group-hover:bg-primary/20 transition-colors">
-                      {tag.count}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
           </div>
 
           {!isMobile && (
-            <div className="hidden md:block">
+            <div className="hidden md:block space-y-4">
               <CategoryList 
                 selectedCategory={selectedCategory}
                 onSelectCategory={setSelectedCategory}
               />
+              
+              {/* Popular Tags Section - Moved here */}
+              <div className="bg-white/50 backdrop-blur-sm rounded-none p-4 shadow-md border border-gray-100 w-64">
+                <div className="flex items-center gap-2 mb-4">
+                  <Tags className="w-5 h-5 text-primary" />
+                  <h2 className="text-lg font-bold">تگ‌های پرطرفدار</h2>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {popularTags.map((tag) => (
+                    <button
+                      key={tag.id}
+                      onClick={() => handleTagClick(tag.name)}
+                      className="px-3 py-1.5 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 group"
+                    >
+                      <span>{tag.name}</span>
+                      <span className="bg-primary/10 text-primary px-1.5 py-0.5 rounded-md text-xs group-hover:bg-primary/20 transition-colors">
+                        {tag.count}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
