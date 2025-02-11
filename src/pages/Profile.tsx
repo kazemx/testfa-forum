@@ -131,7 +131,7 @@ const Profile = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="max-w-7xl mx-auto px-4 py-12">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:py-12">
         <div className="flex justify-between items-center mb-6">
           <Button 
             variant="destructive" 
@@ -147,46 +147,55 @@ const Profile = () => {
             className="flex items-center gap-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            بازگشت به صه اصلی
+            بازگشت به صفحه اصلی
           </Button>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm p-8" dir="rtl">
-          <div className="flex items-center justify-between gap-4 mb-8">
-            <div className="flex items-center gap-4">
-              <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
-                <UserCircle className="w-12 h-12 text-primary" />
+        <div className="bg-white rounded-lg shadow-sm p-4 sm:p-8" dir="rtl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 w-full sm:w-auto">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                <UserCircle className="w-10 h-10 sm:w-12 sm:h-12 text-primary" />
               </div>
-              <div className="text-right">
-                <h1 className="text-2xl font-bold">{firstName} {lastName}</h1>
-                <div className="text-gray-600 max-w-xl mt-2 whitespace-pre-line break-words leading-relaxed">
+              <div className="text-right flex-1 sm:flex-initial">
+                <div className="flex items-center justify-between gap-4 mb-2">
+                  <h1 className="text-xl sm:text-2xl font-bold">{firstName} {lastName}</h1>
+                  <div className="flex gap-2">
+                    {isMobile ? (
+                      <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+                        <SheetTrigger asChild>
+                          <Button variant="outline" size="sm">
+                            <Menu className="h-4 w-4 ml-2" />
+                            منو
+                          </Button>
+                        </SheetTrigger>
+                        <SheetContent side="right" className="w-[240px] sm:w-[340px]">
+                          <div className="py-4">
+                            <Tabs defaultValue="about" className="w-full" orientation="vertical">
+                              <TabsNavigation />
+                            </Tabs>
+                          </div>
+                        </SheetContent>
+                      </Sheet>
+                    ) : null}
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => setIsProfileDialogOpen(true)}
+                    >
+                      ویرایش پروفایل
+                    </Button>
+                  </div>
+                </div>
+                <div className="text-gray-600 text-sm sm:text-base mt-2 sm:mt-0 max-w-xl whitespace-pre-line break-words leading-relaxed line-clamp-3 sm:line-clamp-none hover:line-clamp-none transition-all duration-300">
                   {aboutMe}
                 </div>
               </div>
             </div>
-            <Button variant="outline" onClick={() => setIsProfileDialogOpen(true)}>
-              ویرایش پروفایل
-            </Button>
           </div>
           
           <div className="space-y-6">
-            {isMobile ? (
-              <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="outline" className="mb-4">
-                    <Menu className="h-4 w-4 ml-2" />
-                    منو
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="w-[240px] sm:w-[340px]">
-                  <div className="py-4">
-                    <Tabs defaultValue="about" className="w-full" orientation="vertical">
-                      <TabsNavigation />
-                    </Tabs>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            ) : (
+            {!isMobile && (
               <Tabs defaultValue="about" className="w-full flex flex-row-reverse gap-6">
                 <TabsNavigation />
                 <div className="flex-1">
