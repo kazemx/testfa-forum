@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
@@ -80,7 +81,7 @@ const Index = () => {
             <div className="w-full flex justify-end mb-8">
               <div className="w-full relative flex gap-4">
                 <Button 
-                  className="bg-blue-500 hover:bg-blue-600 text-white rounded-xl flex items-center gap-2 px-6"
+                  className="bg-[#f0ed1a] hover:bg-[#f0ed1a]/90 text-gray-800 rounded-xl flex items-center gap-2 px-6"
                   onClick={() => navigate('/new-question')}
                 >
                   <Plus className="w-5 h-5" />
