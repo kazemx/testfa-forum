@@ -53,10 +53,7 @@ const Index = () => {
   // Auto-slide effect
   useEffect(() => {
     const interval = setInterval(() => {
-      setActiveSlide((current) => {
-        const nextSlide = (current + 1) % popularTopics.length;
-        return nextSlide;
-      });
+      setActiveSlide((current) => (current + 1) % popularTopics.length);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -112,13 +109,13 @@ const Index = () => {
             {/* Popular Topics Carousel Section */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-6 text-right">پربازدیدها</h2>
-              <Carousel className="w-full">
+              <Carousel className="w-full overflow-hidden">
                 <CarouselContent>
                   {popularTopics.map((topic, index) => (
                     <CarouselItem key={topic.id} className="basis-full">
                       <div 
                         className={`bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100 transition-all duration-500 ${
-                          index === activeSlide ? "opacity-100 scale-100" : "opacity-0 scale-95"
+                          index === activeSlide ? "opacity-100 translate-x-0" : "opacity-0 translate-x-full absolute"
                         }`}
                       >
                         <div className="flex items-center gap-3 mb-4">
