@@ -21,6 +21,7 @@ type Topic = {
   likes: number;
   replies: number;
   category: string;
+  tags?: string[];
 };
 
 const getTopicIcon = (category: string) => {
@@ -282,7 +283,8 @@ const sortTopics = (topics: Topic[], activeTab: string, selectedCategory: string
     filteredTopics = filteredTopics.filter(topic => 
       topic.title.toLowerCase().includes(query) ||
       topic.author.toLowerCase().includes(query) ||
-      topic.category.toLowerCase().includes(query)
+      topic.category.toLowerCase().includes(query) ||
+      topic.tags?.some(tag => tag.toLowerCase().includes(query))
     );
   }
 
