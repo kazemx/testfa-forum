@@ -1,4 +1,4 @@
-import { UserCircle, ArrowLeft, LogOut, Menu } from "lucide-react";
+import { UserCircle, ArrowLeft, LogOut, Menu, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -34,6 +34,7 @@ const Profile = () => {
   const [isPasswordDialogOpen, setIsPasswordDialogOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("about");
+  const [isAboutExpanded, setIsAboutExpanded] = useState(false);
 
   // Profile form state
   const [firstName, setFirstName] = useState("کاظم");
@@ -300,8 +301,28 @@ const Profile = () => {
                     </Button>
                   </div>
                 </div>
-                <div className="text-gray-600 text-sm sm:text-base mt-2 sm:mt-0 max-w-xl whitespace-pre-line break-words leading-relaxed line-clamp-3 sm:line-clamp-none hover:line-clamp-none transition-all duration-300">
-                  {aboutMe}
+                <div className="space-y-2">
+                  <div className={`text-gray-600 text-sm sm:text-base mt-2 sm:mt-0 max-w-xl whitespace-pre-line break-words leading-relaxed ${isAboutExpanded ? '' : 'line-clamp-3'}`}>
+                    {aboutMe}
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm"
+                    onClick={() => setIsAboutExpanded(!isAboutExpanded)}
+                    className="flex items-center gap-1 text-primary hover:text-primary/80"
+                  >
+                    {isAboutExpanded ? (
+                      <>
+                        نمایش کمتر
+                        <ChevronUp className="h-4 w-4" />
+                      </>
+                    ) : (
+                      <>
+                        نمایش بیشتر
+                        <ChevronDown className="h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
                 </div>
               </div>
             </div>
