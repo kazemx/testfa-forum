@@ -1,9 +1,8 @@
-
 import { useState } from "react";
 import TopicTabs from "@/components/TopicTabs";
 import CategoryList from "@/components/CategoryList";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, Search, Plus } from "lucide-react";
+import { BookOpen, Search, Plus, Tags } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import MobileCategoryFilter from "@/components/MobileCategoryFilter";
@@ -38,11 +37,25 @@ const popularTopics = [
   }
 ];
 
+// Popular tags data
+const popularTags = [
+  { id: 1, name: "آموزش", count: 6 },
+  { id: 2, name: "ریاضی", count: 5 },
+  { id: 3, name: "برنامه نویسی", count: 5 },
+  { id: 4, name: "علوم", count: 3 },
+  { id: 5, name: "فیزیک", count: 2 },
+  { id: 6, name: "شیمی", count: 2 }
+];
+
 const Index = () => {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+
+  const handleTagClick = (tagName: string) => {
+    navigate(`/tags?tag=${encodeURIComponent(tagName)}`);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
@@ -91,7 +104,7 @@ const Index = () => {
               searchQuery={searchQuery}
             />
 
-            {/* Popular Topics Section - Moved here */}
+            {/* Popular Topics Section */}
             <div className="mt-8">
               <h2 className="text-2xl font-bold mb-6 text-right">پربازدید‌ها</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -149,7 +162,30 @@ const Index = () => {
                 ))}
               </div>
             </div>
+
+            {/* Popular Tags Section */}
+            <div className="mt-8 bg-white/50 backdrop-blur-sm rounded-lg p-6 shadow-md border border-gray-100">
+              <div className="flex items-center gap-2 mb-4">
+                <Tags className="w-5 h-5 text-primary" />
+                <h2 className="text-xl font-bold">تگ‌های پرطرفدار</h2>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {popularTags.map((tag) => (
+                  <button
+                    key={tag.id}
+                    onClick={() => handleTagClick(tag.name)}
+                    className="px-3 py-1.5 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 group"
+                  >
+                    <span>{tag.name}</span>
+                    <span className="bg-primary/10 text-primary px-1.5 py-0.5 rounded-md text-xs group-hover:bg-primary/20 transition-colors">
+                      {tag.count}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
+
           {!isMobile && (
             <div className="hidden md:block">
               <CategoryList 
@@ -170,4 +206,3 @@ const Index = () => {
 };
 
 export default Index;
-
