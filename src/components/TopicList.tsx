@@ -18,7 +18,7 @@ type Topic = {
 const getTopicIcon = (category: string) => {
   switch (category.toLowerCase()) {
     case "ریاضیات":
-      return <ChartLine className="w-4 h-4 text-gray-600 bg-teal-300 hover:bg-teal-200" />;
+      return <ChartLine className="w-4 h-4 text-gray-600 bg-teal-300 hover:bg-teal-200 rounded-2xl" />;
     case "زیست شناسی":
       return <Microscope className="w-4 h-4 text-gray-600 bg-green-400 hover:bg-green-300" />;
     case "شیمی":
