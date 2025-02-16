@@ -22,7 +22,7 @@ const getTopicIcon = (category: string) => {
     case "زیست شناسی":
       return <Microscope className="w-4 h-4 text-gray-600 bg-green-400 hover:bg-green-300 rounded-lg" />;
     case "شیمی":
-      return <FlaskConical className="w-4 h-4 text-gray-600 bg-rose-700 hover:bg-rose-600" />;
+      return <FlaskConical className="w-4 h-4 text-gray-600 bg-rose-700 hover:bg-rose-600 rounded-lg" />;
     case "فیزیک":
       return <Signal className="w-4 h-4 text-gray-600 bg-lime-200 hover:bg-lime-100" />;
     case "علوم و فنون":
