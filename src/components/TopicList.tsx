@@ -26,7 +26,7 @@ const getTopicIcon = (category: string) => {
     case "فیزیک":
       return <Signal className="w-4 h-4 text-gray-600 bg-lime-200 hover:bg-lime-100" />;
     case "علوم و فنون":
-      return <Shield className="w-4 h-4 text-gray-600" />;
+      return <Shield className="w-4 h-4 text-gray-600 bg-sky-400 hover:bg-sky-300" />;
     case "زمین شناسی":
     case "جغرافیا":
       return <Earth className="w-4 h-4 text-gray-600" />;
