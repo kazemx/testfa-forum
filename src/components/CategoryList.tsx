@@ -100,7 +100,7 @@ const CategoryList = ({
         <motion.div whileHover={{
         scale: 1.02
       }} className={`flex justify-between items-center p-2 hover:bg-white/30 rounded-md cursor-pointer transition-colors ${selectedCategory === null ? 'bg-white/30' : ''}`} onClick={() => onSelectCategory(null)}>
-          <span className="text-gray-700">همه</span>
+          <span className="text-gray-700">همه دسته ها</span>
         </motion.div>
         {categories.map(category => <motion.div key={category.id} whileHover={{
         scale: 1.02
