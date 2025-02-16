@@ -122,7 +122,7 @@ const Index = () => {
                           {topic.views.toLocaleString('fa-IR')}
                         </span>
                       </div>
-                      <Button variant="secondary" size="sm" onClick={() => navigate(`/topics/${topic.id}`)} className="text-xs bg-primary/5 hover:bg-primary/10 text-primary transition-colors">
+                      <Button variant="secondary" size="sm" onClick={() => navigate(`/topics/${topic.id}`)} className="text-xs bg-primary/5 hover:bg-primary/10 text-primary transition-colors bg-green-600 hover:bg-green-500">
                         مشاهده
                       </Button>
                     </div>
