@@ -96,7 +96,7 @@ const CategoryList = ({
 }) => {
   return <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 w-64">
       <h2 className="text-lg font-semibold mb-4 text-gray-800">دسته‌بندی‌ها</h2>
-      <div className="space-y-2 bg-teal-50">
+      <div className="space-y-2 bg-neutral-100">
         <motion.div whileHover={{
         scale: 1.02
       }} className={`flex justify-between items-center p-2 hover:bg-white/30 rounded-md cursor-pointer transition-colors ${selectedCategory === null ? 'bg-white/30' : ''}`} onClick={() => onSelectCategory(null)}>
