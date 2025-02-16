@@ -143,7 +143,7 @@ const Index = () => {
                 <div className="flex flex-wrap gap-2">
                   {popularTags.map(tag => <button key={tag.id} onClick={() => handleTagClick(tag.name)} className="px-3 py-1.5 bg-primary/5 hover:bg-primary/10 text-primary rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 group bg-sky-200 hover:bg-sky-100">
                       <span>{tag.name}</span>
-                      <span className="bg-primary/10 text-primary px-1.5 py-0.5 rounded-md text-xs group-hover:bg-primary/20 transition-colors">
+                      <span className="bg-primary/10 text-primary px-1.5 py-0.5 rounded-md text-xs group-hover:bg-primary/20 transition-colors text-red-500">
                         {tag.count}
                       </span>
                     </button>)}
