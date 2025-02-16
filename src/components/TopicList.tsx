@@ -29,7 +29,7 @@ const getTopicIcon = (category: string) => {
       return <Shield className="w-4 h-4 text-gray-600 bg-sky-400 hover:bg-sky-300" />;
     case "زمین شناسی":
     case "جغرافیا":
-      return <Earth className="w-4 h-4 text-gray-600" />;
+      return <Earth className="w-4 h-4 text-gray-600 bg-lime-600 hover:bg-lime-500 rounded-lg" />;
     case "جامعه شناسی":
       return <Users className="w-4 h-4 text-gray-600 bg-emerald-100" />;
     case "ادبیات فارسی":
