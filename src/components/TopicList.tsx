@@ -31,7 +31,7 @@ const getTopicIcon = (category: string) => {
     case "جغرافیا":
       return <Earth className="w-4 h-4 text-gray-600 bg-lime-600 hover:bg-lime-500 rounded-lg" />;
     case "جامعه شناسی":
-      return <Users className="w-4 h-4 text-gray-600 bg-emerald-100" />;
+      return <Users className="w-4 h-4 text-gray-600 bg-emerald-100 rounded-lg" />;
     case "ادبیات فارسی":
     case "عربی":
     case "زبان انگلیسی":
