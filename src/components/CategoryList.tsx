@@ -109,7 +109,7 @@ const CategoryList = ({
               {category.icon}
               <span className="text-gray-700">{category.name}</span>
             </div>
-            <span className="bg-[#d1d106] text-gray-800 px-2 py-1 rounded-full text-sm">
+            <span className="bg-[#FFC312] text-gray-800 px-2 py-1 rounded-full text-sm">
               {category.count}
             </span>
           </motion.div>)}
