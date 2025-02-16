@@ -83,7 +83,7 @@ const Index = () => {
             {/* Search Bar */}
             <div className="w-full flex justify-end mb-8">
               <div className="w-full relative flex gap-4">
-                <Button className="bg-[#f0ed1a] hover:bg-[#f0ed1a]/90 text-gray-800 rounded-xl flex items-center gap-2 px-6" onClick={() => navigate('/new-question')}>
+                <Button onClick={() => navigate('/new-question')} className="text-gray-800 rounded-xl flex items-center gap-2 px-6 bg-amber-400 hover:bg-amber-300">
                   <Plus className="w-5 h-5" />
                   <span>ثبت پرسش جدید</span>
                 </Button>
