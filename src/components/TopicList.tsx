@@ -338,7 +338,7 @@ export default function TopicList({
                     </span>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" onClick={() => navigate(`/topics/${topic.id}`)} className="text-xs bg-green-500 hover:bg-green-400 rounded-xl">
+                <Button variant="ghost" size="sm" onClick={() => navigate(`/topics/${topic.id}`)} className="text-xs rounded-xl bg-sky-300 hover:bg-sky-200">
                   مشاهده
                 </Button>
               </div>
